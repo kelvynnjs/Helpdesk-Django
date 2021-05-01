@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'helpdesk.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'base_helpdesk',
+        'NAME': 'mydatabase',
     }
 }
 
