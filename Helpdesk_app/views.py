@@ -4,6 +4,9 @@ from django.shortcuts import HttpResponse
 
 
 #Cria a pagina inicial
-""" def home(request):
-    rerturn render('') """
+
+def home(request):
+    context = {}
+    return render(request, "home.html", context)
+
    

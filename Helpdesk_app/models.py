@@ -16,7 +16,7 @@ class Chamado(models.Model):
     data_hora_abertura = models.DateTimeField()
 
     def __str__(self):
-        return (self.titulo, self.ch)
+        return self.titulo
     
     
 
