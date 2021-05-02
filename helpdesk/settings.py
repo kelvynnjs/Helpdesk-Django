@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Helpdesk_app.apps.HelpdeskAppConfig'
+  #  'Helpdesk_app.apps.HelpdeskAppConfig',
+    'Helpdesk_app',
 ]
 
 MIDDLEWARE = [
