@@ -1,33 +1,9 @@
-{% comment %} {% extends 'base.html'%} {% endcomment %}
+{% extends "base.html" %}
+
+{% block title %} Início {% endblock  %}
+ 
 
 
-<!DOCTYPE html>
-<html>
-<head>
-	   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+{% block content %} <h1>Teste de conteúdo </h1>{% endblock %}
 
-	<title>{% block title %} {%endblock title %}</title>
-    {% block favicon%} <link rel='icon' type='image/png' href='{{ STATIC_URL }}images/favicon.ico'>
-     {% endblock favicon %}
-    
-
-{% block css %}
-<link rel="stylesheet" href="{STATIC_URL}/css/bootstrap.css">
-
-{% endblock css %}
-
-
-</head>
-
-<body>
-
-<H1>OLÁ MUNDO</H1>
-{% block javascript %}
-<script src="{{ STATIC_URL }}js/bootstrap.js"></script>
-<script src="{{ STATIC_URL }}js/jquery-3.6.0.min.js"></script>
-
- {% endblock javascript%}
-</body>
-</html>

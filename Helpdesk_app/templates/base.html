@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html>
+{% load static %}
+
+<html lang="pt-br">
+
 <head>
-	   <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-	<title>{% block title %} {%endblock title %}</title>
-    {% block favicon%} <link rel='icon' type='image/png' href='{{ STATIC_URL }}images/favicon.ico'>
-     {% endblock favicon %}
-    
-
-{% block css %}
+  <title>{% block title %} {% endblock %}</title>
+  <link rel='icon' type='image/png' href="{% static 'images/favicon.ico' %}">
 
 
-{% endblock css %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 
 
 </head>
 
 <body>
-{% block javascript %}
+  {% include "navbar.html" %} {% comment %} ISSO INCLUE A BARRA DE NAVEGAÇÃO {% endcomment %}
 
 
- {% endblock javascript%}
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  {% block javascript %}
+  {% endblock %}
 
-
-
-
- 
+  {% block content %}{% endblock %}
 </body>
+
 </html>
