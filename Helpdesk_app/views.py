@@ -42,15 +42,13 @@ def cadastro(request):
 
 def cadastrar_usuario(request):
     form = UsuarioForm(request.POST)
-    if form.is_valid:
+    if form.is_valid():
         cadastro = Usuario(
             nome_usuario = form.cleaned_data['nome_usuario'],
             nome_completo = form.cleaned_data['nome_completo'],
             email = form.cleaned_data['email'],
-            senha_usuario = form.cleaned_data['senha_usuario'],
-            data_criacao = datetime.datetime.now(),
+            senha_usuario = form.cleaned_data['senha_usuario']
         
-    
         )
         cadastro.save()
 

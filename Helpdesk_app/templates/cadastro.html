@@ -4,11 +4,12 @@
 
 <style> body{ background-color:#2e2e2e;}</style>
 
-{% csrf_token %}
+
 <br>
 <main class="form-signin">
- <div class='container' style='max-width: 40rem;'>   <form action="{% url 'cadastrar_usuario'%}" method ="POST">
-      
+ <div class='container' style='max-width: 40rem;'>  
+ <form action="{% url 'cadastrar_usuario'%}" method ="POST">
+  {% csrf_token %}
 
        <h1 style="color:white; text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
         <br>
