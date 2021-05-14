@@ -25,11 +25,14 @@ def login_page(request):
         
     else: """
     
-
-
-
 def chamados(request):
     context = {
 
     }
     return render(request, "chamados.html", context)
+
+
+def cadastro(request):
+    context = {}
+
+    return render(request, "cadastro.html", context)
