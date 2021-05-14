@@ -32,6 +32,9 @@ class Usuario(models.Model):
     place = models.CharField(max_length=45) #departamento/local onde o usuário solicitante se encontra (onde o suporte acontece)
     data_criacao = models.DateTimeField #data de criação do usuário
 
+    def __str__(self):
+        return self.nome_completo
+
 
 
 

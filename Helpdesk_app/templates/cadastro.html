@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<style> body{ background-color:#2e2e2e;}</style>
+
+{% csrf_token %}
+<br>
+<main class="form-signin">
+ <div class='container' style='max-width: 40rem;'>   <form action="{% url 'cadastrar_usuario'%}" method ="POST">
+      
+
+       <h1 style="color:white; text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
+        <br>
+       {{form.nome_usuario}}
+        <br>
+       {{form.nome_completo}}
+        <br>
+        {{form.email}}
+        <br>
+       {{form.senha_usuario}}
+        <br>
+        <center><button style='background-color:rgb(179, 240, 184)'class="w-100 btn btn-sm" type="submit">Iniciar Sessão</button></center></div>
+       </div>
+      
+      
+    </form>
+</main>
+
+
+
+{% endblock %}
+
