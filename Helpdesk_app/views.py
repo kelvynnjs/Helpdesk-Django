@@ -18,11 +18,13 @@ def home(request):
 
 def login_page(request):
     context = {}
-    if request.method == 'GET':
+    return render(request, "login.html", context)
+"""     if request.method == 'GET':
         return render(request, "login.html", context)
     if request.method == 'POST':
         
-    else:
+    else: """
+    
 
 
 
