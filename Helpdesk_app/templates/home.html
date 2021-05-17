@@ -3,9 +3,13 @@
 {% block title %} Início {% endblock  %}
 
   
-{% block body %} {% include "navbar.html" %} <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO--> {% endblock %}
+{% block body %} {% include "navbar.html" %}  <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 
 
-{% block content %}  {% endblock %}
+
+{% endblock %}
+
+
+{% block content %} {% include 'notificacoes.html'%}  {% endblock %}
 
 

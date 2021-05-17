@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Usuario
 from .forms import UsuarioForm
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.shortcuts import HttpResponse, redirect
 from .models import Chamado
 import datetime
@@ -48,8 +49,10 @@ def cadastrar_usuario(request):
             nome_completo = form.cleaned_data['nome_completo'],
             email = form.cleaned_data['email'],
             senha_usuario = form.cleaned_data['senha_usuario']
-        
         )
         cadastro.save()
+        messages.add_message(request, messages.SUCCESS, 'Cadastro realizado com sucesso!.')
 
         return redirect('home')
+    else:
+        messages.add_message(request, messages.ERROR, 'Houve um problema com esse cadastro!.')

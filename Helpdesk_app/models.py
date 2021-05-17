@@ -1,5 +1,5 @@
 #KELVYNN JOSÉ DA SILVA - IFPR - 2021
-
+import pytz
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -30,7 +30,7 @@ class Usuario(models.Model):
     senha_usuario = models.CharField(max_length=100)
     email = models.CharField(max_length=100) #email do usuário
     place = models.CharField(max_length=45) #departamento/local onde o usuário solicitante se encontra (onde o suporte acontece)
-    data_criacao = models.DateTimeField(auto_now_add=True, editable=False, blank=False) #data de criação do usuário
+    data_criacao = models.DateTimeField(auto_now_add=True, editable=True, blank=False) #data de criação do usuário
 
     def __str__(self):
         return self.nome_completo
