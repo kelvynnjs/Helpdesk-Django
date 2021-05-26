@@ -1,29 +1,39 @@
 {% extends 'base.html' %}
 {% include 'notificacoes.html'%} 
+
 {% block content%}
 
-<style> body{ background-color:#2e2e2e;}</style>
+<!-- <style> body{ background-color:#2e2e2e;}</style> -->
 
 
 <br>
 <main class="form-signin">
  <div class='container' style='max-width: 40rem;'>  
- <form action="{% url 'cadastrar_usuario'%}" method ="POST">
+ <form action="{% url 'cadastro'%}" method ="POST">
   {% csrf_token %}
 
        <h1 style="color:white; text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
         <br>
-       {{form.nome_usuario}}
+
+       <label for="username" class="visually-hidden"></label>
+       <input name='username' type="username" class="form-control" placeholder="Usuário" required autofocus>
+       <label style='margin-top:10px;' for="password" class="visually-hidden"></label>
+       <input name='password' style='margin-top:10px;'type="password" class="form-control" placeholder="Senha" required>
+       <div class="checkbox mb-3">
+         <label>
+       </div> 
+
+
+
+
+
         <br>
-       {{form.nome_completo}}
-        <br>
-        {{form.email}}
-        <br>
-       {{form.senha_usuario}}
-        <br>
-        <center><button style='background-color:rgb(179, 240, 184)'class="w-100 btn btn-sm" type="submit">Confirmar Cadastro</button></center></div>
+        <center><button style='background-color:rgb(179, 240, 184)'class="w-100 btn btn-md" type="submit">Confirmar Cadastro</button></center></div>
        </div>
-      
+    <br>
+    <br>
+    <br>
+    <br>
       
     </form>
 </main>

@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 
-
-
 {% block content%}
 
 <style> body{ background-color:#2e2e2e;}</style>
@@ -10,15 +8,18 @@
 
 <br>
 <main class="form-signin">
- <div class='container' style='max-width: 40rem;'>   <form action="/login" method ="POST">
+ <div class='container' style='max-width: 40rem;'>   <form action ='/login/' method ="POST">
+      {% csrf_token %}
        <h1 style="color:white; text-align: center" class="h3 mb-3 fw-normal">Login - Helpdesk</h1>
-       <label for="usuario" class="visually-hidden"></label>
-       <input name='nameus' type="username" class="form-control" placeholder="Usuário" required autofocus>
+
+
+ <label for="username" class="visually-hidden"></label>
+       <input name='username' type="username" class="form-control" placeholder="Usuário" required autofocus>
        <label style='margin-top:10px;' for="inputPassword" class="visually-hidden"></label>
-       <input name='pass' style='margin-top:10px;'type="password" class="form-control" placeholder="Senha" required>
+       <input name='password' style='margin-top:10px;'type="password" class="form-control" placeholder="Senha" required>
        <div class="checkbox mb-3">
          <label>
-       </div>
+       </div> 
        <center><button style='background-color:rgb(127, 253, 137)'class="w-50 btn btn-sm" type="submit">Iniciar Sessão</button></center></div>
       
     </form>
