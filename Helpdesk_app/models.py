@@ -28,9 +28,13 @@ class Chamado(models.Model):
 
 #------------------------------------SOFRIMENTO--------------------------------------#
 class Usuario(AbstractUser):
-    nome_completo = models.CharField(max_length=60) # nome completo do usuário
+    nome_completo = models.CharField(max_length=120) # nome completo do usuário
     data_criacao = models.DateTimeField(auto_now_add=True) #data de criação do usuário
     data_modificacao = models.DateTimeField(auto_now=True) #data de modificação do usuário
+def save(self, ** kwargs):
+
+    def __str__(self):
+        return self.username
 
 #-----------------------------------FIM_SOFRIMENTO------------------------------------#
 

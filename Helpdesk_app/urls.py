@@ -8,7 +8,8 @@ path('', views.home, name ='home'),
 path('chamados/', views.Chamado, name='chamados'),
 path('login/', views.login, name='login'),
 path('cadastro/', views.cadastro, name='cadastro'),
-path('^', include('django.contrib.auth.urls')),
+path('404/', views.erro_404, name='404'),
+
 
 
 ]

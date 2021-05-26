@@ -1,44 +1,58 @@
 {% extends 'base.html' %}
-{% include 'notificacoes.html'%} 
+
 
 {% block content%}
+{% include 'notificacoes.html'%}
 
-<!-- <style> body{ background-color:#2e2e2e;}</style> -->
+<style> body{ background-color:#494949;}</style>
 
 
 <br>
 <main class="form-signin">
- <div class='container' style='max-width: 40rem;'>  
- <form action="{% url 'cadastro'%}" method ="POST">
-  {% csrf_token %}
+   <div class='container' style='max-width: 40rem; background-color: #ffffff; margin-top:15px; padding-top: 15px;'>
+      <form action="{% url 'cadastro'%}" method="POST">
+         {% csrf_token %}
 
-       <h1 style="color:white; text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
-        <br>
+         <h1 style="color:rgb(59, 58, 58); text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
+         <br>
+         <!-- nome de usuario -->
+         <strong><label for="username" class="visually-hidden">Nome de Usuário:</label></strong>
+         <input id ='username' name='username' type="username" class="form-control" placeholder="Digite aqui o seu Nome de Usuário" required autofocus>
+         <!--  -->
 
-       <label for="username" class="visually-hidden"></label>
-       <input name='username' type="username" class="form-control" placeholder="Usuário" required autofocus>
-       <label style='margin-top:10px;' for="password" class="visually-hidden"></label>
-       <input name='password' style='margin-top:10px;'type="password" class="form-control" placeholder="Senha" required>
-       <div class="checkbox mb-3">
-         <label>
-       </div> 
+         <!-- nome completo -->
+         <strong><label style='margin-top:5px;' for="nome_completo" class="visually-hidden">Nome Completo:</label></strong>
+         <input id ='nome_completo' name='nome_completo' style='margin-top:5px;' type="text" class="form-control"
+            placeholder="Digite aqui o seu Nome Completo" required>
+         <!--  -->
+
+
+         <!-- Email -->
+         <strong><label style='margin-top:5px;' for="email" class="visually-hidden">Email:</label></strong>
+         <input id ='email' name='email' style='margin-top:5px;' type="email" class="form-control" placeholder="Digite aqui o seu E-mail" required>
+         <!--  -->
+
+         <!-- Senha -->
+        <strong> <label style='margin-top:5px;' for="password" class="visually-hidden">Senha:</label></strong>
+         <input id ='password' name='password' style='margin-top:5px;' type="password" class="form-control" placeholder="Digite aqui a sua Senha"
+            required>
+         <!--  -->
 
 
 
+         <div class="checkbox mb-3">
+            <label>
+         </div>
 
+         <center><button style='background-color:rgb(127, 221, 135); margin-bottom: 15px;' class="w-100 btn btn-md" type="submit">Confirmar
+               Cadastro</button></center>
+   </div>
+   </div>
+   <br>
 
-        <br>
-        <center><button style='background-color:rgb(179, 240, 184)'class="w-100 btn btn-md" type="submit">Confirmar Cadastro</button></center></div>
-       </div>
-    <br>
-    <br>
-    <br>
-    <br>
-      
-    </form>
+   </form>
 </main>
 
 
 
 {% endblock %}
-
