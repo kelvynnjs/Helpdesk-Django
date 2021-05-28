@@ -10,17 +10,18 @@
 <br>
 <main class="form-signin">
    <div class='container' style='max-width: 40rem; background-color: #ffffff; margin-top:15px; padding-top: 15px;'>
-      <form action="{% url 'cadastro'%}" method="POST">
+      <form action="/cadastro/" method="POST">
          {% csrf_token %}
 
-         <h1 style="color:rgb(59, 58, 58); text-align: center" class="h3 mb-3 fw-normal">Cadastro de usuário - Helpdesk</h1>
+          <h2 style="color:rgb(59, 58, 58); text-align: center" class="h4 mb-3 fw-normal">{{Nome_Sistema}}</h2> 
+         <h2 style="color:rgb(59, 58, 58); text-align: center" class="h4 mb-3 fw-normal">Cadastro de Usuário</h2>
          <br>
-         <!-- nome de usuario -->
+         <!-- Nome de Usuario -->
          <strong><label for="username" class="visually-hidden">Nome de Usuário:</label></strong>
          <input id ='username' name='username' type="username" class="form-control" placeholder="Digite aqui o seu Nome de Usuário" required autofocus>
          <!--  -->
 
-         <!-- nome completo -->
+         <!-- Nome Completo -->
          <strong><label style='margin-top:5px;' for="nome_completo" class="visually-hidden">Nome Completo:</label></strong>
          <input id ='nome_completo' name='nome_completo' style='margin-top:5px;' type="text" class="form-control"
             placeholder="Digite aqui o seu Nome Completo" required>

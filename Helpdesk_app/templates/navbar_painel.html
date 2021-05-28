@@ -1,31 +1,63 @@
 
 <!-- FIM -->
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">{{Nome_Sistema}}</a>
+  <a class="navbar-brand" href="http://localhost:8000">{{Nome_Sistema}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-    
-    </ul>
-    <ul class="navbar-nav ">
-  
-   <li class="nav-item">
-        <a class="nav-link" href="{% url 'cadastro'%}">
-          <i class="fa fa-user-plus"></i>
-          Cadastro
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fa fa-home"></i>
+          Início
+          <span class="sr-only">(current)</span>
+          </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-ticket">
+            <span class="badge badge-danger">11</span>
+          </i>
+          Chamados
         </a>
       </li>
-
-
+    
+    
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-envelope-o">
+            <span class="badge badge-primary">11</span>
+          </i>
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'login'%}">
-          <i class="fa fa-sign-in"></i>
-          Entrar
+        <a class="nav-link" href="#">
+          <i class="fa fa-user-circle">
+          </i>
+          Perfil
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fa fa-cogs"></i>
+          Configurações
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sair">
+          <i class="fa fa-sign-out"></i>
+          Sair
         </a>
       </li>
     </ul>
