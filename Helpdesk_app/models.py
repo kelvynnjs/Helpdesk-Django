@@ -11,13 +11,16 @@ from django.contrib.auth.models import AbstractUser
 
 # Tabela de Chamados.
 class Chamado(models.Model):
-    autor = models.CharField(max_length=45)
+    autor = models.CharField(max_length=50)
     prioridade = models.CharField(max_length=30)
-    status = models.CharField(max_length=30)
-    titulo = models.CharField(max_length=30)
-    topico = models.CharField(max_length=30)
-    corpo = models.TextField()
-    data_hora_abertura = models.DateTimeField()
+    agente_atribuido = models.CharField(max_length=100, default = None)
+    status = models.CharField(max_length=30) #Status do chamado ex: ABERTO, CONCLUÍDO, DELETADO 
+    titulo = models.CharField(max_length=50)
+    topico = models.CharField(max_length=50) #Tópico (ex: Dificuldade de acesso; Solicitar Instalação; Problemas com o computador)
+    descricao = models.TextField()
+    hora_abertura = models.DateTimeField()
+
+
 
     def __str__(self):
         return self.titulo
@@ -31,10 +34,13 @@ class Usuario(AbstractUser):
     nome_completo = models.CharField(max_length=120) # nome completo do usuário
     data_criacao = models.DateTimeField(auto_now_add=True) #data de criação do usuário
     data_modificacao = models.DateTimeField(auto_now=True) #data de modificação do usuário
-def save(self, ** kwargs):
-
+    is_atendente = models.BooleanField(default=False) #Define se o usuário é um atendente ou não
+    
     def __str__(self):
         return self.username
+
+
+
 
 #-----------------------------------FIM_SOFRIMENTO------------------------------------#
 

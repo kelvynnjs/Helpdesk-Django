@@ -23,7 +23,7 @@ Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
 
 Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
 
-
+Novos_Chamados = 1
 
 #
 
@@ -119,17 +119,24 @@ def erro_404(request):
 
 
 
-
+@login_required
 def chamados(request):
     context = {}
     context['Nome_Sistema'] = Nome_Sistema
     return render(request, "chamados.html", context)
 
-
+@login_required
 def painel(request):
     context = {}
+    
     context['Nome_Sistema'] = Nome_Sistema
+    context['Novos_Chamados'] = Novos_Chamados
+    context['chamados'] = chamados_sis
+
+
     return render(request, "painel.html", context)
+
+
 
 
 

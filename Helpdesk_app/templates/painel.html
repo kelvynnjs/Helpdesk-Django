@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %} Início {% endblock  %}
+{% block title %} Painel {% endblock  %}
 
   
 {% block body %} {% include "navbar_painel.html" %}
@@ -9,6 +9,24 @@
 {% endblock %}
 
 
-{% block content %} {% include 'notificacoes.html'%}  {% endblock %}
+{% block content %} {% include 'notificacoes.html'%} 
+
+
+
+<!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados -->
+
+{% if Usuario.is_atendente %}
+
+{% include "visualizar_chamados.html" %}
+
+{% endif %}
+
+
+
+<!-- Inclue o Botão e modal de formulário de um novo chamado -->
+
+{% include "formulario_chamado.html" %}
+
+ {% endblock %}
 
 

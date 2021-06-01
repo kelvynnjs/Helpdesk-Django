@@ -18,7 +18,9 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fa fa-ticket">
-            <span class="badge badge-danger">11</span>
+          {%if Novos_Chamados > 0%}
+            <span class="badge badge-danger">{{Novos_Chamados}}</span>
+            {% endif %}
           </i>
           Chamados
         </a>

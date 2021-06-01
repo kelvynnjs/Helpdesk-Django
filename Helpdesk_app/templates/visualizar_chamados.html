@@ -1,0 +1,42 @@
+<!-- Visualizador de chamados dos atendentes -->
+
+{% if chamados > 0 %}  <!-- VERIFICA SE EXISTEM CHAMADOS -->
+<div class='vis_chamados'>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<!-- Cabeçalho da tabela de chamados -->
+				<th scope="col">#</th>
+				<th scope="col">Autor</th>
+				<th scope="col">Título</th>
+				<th scope="col">Tópico</th>
+				<th scope="col">Data</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for chamado in chamados %}
+			<!-- loop em todos os chamados -->
+
+
+			<!-- verifica propriedade "PRIORIDADE" dos chamados individualmente e colore o fundo da tag tr-->
+			<tr {% if chamado.prioridade == "muito_alta"%} class="table-danger {% endif %} 
+					{% if chamado.prioridade == 'alta'%}">
+				class="table-warning {% endif %}
+				{% if chamado.prioridade == 'media'%}">
+				class="table-primary {% endif %}
+				{% if chamado.prioridade == 'baixa'%}">
+				class="table-light {% endif %}
+
+				<!-- Valores de uma linha (Horizontal) na tabela de chamados-->
+				<td>chamado.numero</td>
+				<td>chamado.autor</td>
+				<td>chamado.titulo</td>
+				<td>chamado.topico</td>
+				<td>hora_abertura</td>
+				<!-- -->
+				{% endfor %}
+				<!-- Conclui o Loop -->
+
+			</tr>
+</div>
+</table>
