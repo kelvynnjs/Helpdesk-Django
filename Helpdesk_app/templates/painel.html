@@ -5,6 +5,8 @@
   
 {% block body %} {% include "navbar_painel.html" %}
 
+<style> body{background-color: lightcoral; }</style>
+
   <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 {% endblock %}
 
@@ -13,19 +15,19 @@
 
 
 
-<!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados -->
-
-{% if Usuario.is_atendente %}
-
-{% include "visualizar_chamados.html" %}
-
-{% endif %}
-
-
 
 <!-- Inclue o Botão e modal de formulário de um novo chamado -->
+{% include "acoes_chamado.html" %}
 
-{% include "formulario_chamado.html" %}
+
+<!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados -->
+{% include "visualizar_chamados.html" %}
+
+
+
+
+
+
 
  {% endblock %}
 

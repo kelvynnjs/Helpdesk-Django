@@ -1,42 +1,106 @@
 <!-- Visualizador de chamados dos atendentes -->
 
-{% if chamados > 0 %}  <!-- VERIFICA SE EXISTEM CHAMADOS -->
-<div class='vis_chamados'>
-	<table class="table table-striped">
+{% if chamados %}
+<!-- VERIFICA SE EXISTEM CHAMADOS -->
+
+
+
+<!-- <p>{{ request.path }}</p> -->
+
+<div class="card text-center bg-white">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link " href="#">Em Aberto</a> <!-- trocar o active dependendo da página -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Todos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Excluídos</a>
+      </li>
+    </ul>
+  </div>
+  <div style='padding-bottom: 7rem;'class="card-body">
+
+
+
+
+
+
+<!-- teste -->
+<div class='vis_chamados' style='max-width: 84rem;'>
+	<table style='margin:10px; margin-top: 0px;' class="table table-striped table-sm table-bordered">
 		<thead>
 			<tr>
 				<!-- Cabeçalho da tabela de chamados -->
-				<th scope="col">#</th>
-				<th scope="col">Autor</th>
-				<th scope="col">Título</th>
-				<th scope="col">Tópico</th>
-				<th scope="col">Data</th>
+				<th style='border-color: #343A40;text-align: center;' scope="col">Nº</th>
+				<th style='border-color: #343A40;' scope="col">Autor</th>
+				<th style='border-color: #343A40;' scope="col">Título</th>
+				<th style='border-color: #343A40;' scope="col">Tópico</th>
+				<th style='border-color: #343A40;text-align: center;' scope="col">Data</th>
+				<th style='border-color: #343A40;text-align: center;' scope="col">Prioridade</th>
+				<th style='border-color: #343A40;text-align: center;' scope="col">Status</th>
 			</tr>
 		</thead>
 		<tbody>
+			{% endif %}
 			{% for chamado in chamados %}
 			<!-- loop em todos os chamados -->
 
 
-			<!-- verifica propriedade "PRIORIDADE" dos chamados individualmente e colore o fundo da tag tr-->
-			<tr {% if chamado.prioridade == "muito_alta"%} class="table-danger {% endif %} 
-					{% if chamado.prioridade == 'alta'%}">
-				class="table-warning {% endif %}
-				{% if chamado.prioridade == 'media'%}">
-				class="table-primary {% endif %}
-				{% if chamado.prioridade == 'baixa'%}">
-				class="table-light {% endif %}
 
-				<!-- Valores de uma linha (Horizontal) na tabela de chamados-->
-				<td>chamado.numero</td>
-				<td>chamado.autor</td>
-				<td>chamado.titulo</td>
-				<td>chamado.topico</td>
-				<td>hora_abertura</td>
+
+			<!-- verifica propriedade "PRIORIDADE" dos chamados individualmente e colore o fundo da tag tr-->
+			{% if chamado.prioridade == "alta" %}
+			<tr style='border-color: #343A40;background-color: #FF644C;'>
+				{% endif %}
+				{% if chamado.prioridade == "media" %}
+			<tr style='border-color: #343A40;background-color: #FFFA55;'>
+
+				{% endif %}
+				{% if chamado.prioridade == "baixa" %}
+			<tr style='border-color: #343A40;background-color: #84BFF3;' {% endif %} <!-- Valores de uma linha
+				(Horizontal) na tabela de chamados-->
+
+
+				<td style='border-color: #343A40;text-align: center; font-weight: 600'>{{ chamado.id }}</td>
+				<td style='border-color: #343A40; text-transform: capitalize; font-weight: 550'>{{ chamado.autor }}</td>
+				<td style='border-color: #343A40'><a style='font-weight: 600;'>{{ chamado.titulo }}</a>
+					{% if chamado.foi_lido == False %} <small><span class="badge badge-success">Novo</span></small>
+					{% endif %}</td>
+				<td style='border-color: #343A40'>{{ chamado.topico }}</td>
+
+				<td style='border-color: #343A40;text-align: center;'>
+					<small><strong>{{ chamado.hora_abertura|date:"d/m/Y"}} às
+							{{chamado.hora_abertura|time:" H:i" }}</strong></small></td>
+				<td	style='border-color: #343A40;text-align: center; text-transform: uppercase; font-weight: 600;'>
+					<div style=' margin:2px;'><span style='padding-left: 20px; padding-right: 20px;'
+							class='badge badge-dark badge-lg'>{{ chamado.prioridade}}</span></div></td>
+				<td
+		{% if chamado.status == "excluido"%} class="bg-danger text-white" {% endif %} 
+        {% if chamado.status == "fechado"%} class="bg-warning text-white"{% endif %}
+        {% if chamado.status == 'aberto'%} class="bg-primary text-white" {% endif %}
+        {% if chamado.status == 'pendente'%} class="bg-info text-white"{% endif %} 
+        {% if chamado.status == 'resolvido'%} class="bg-success text-white"{% endif %} style='border-color: #343A40;text-transform:uppercase;font-weight: 600;text-align: center;'>
+
+					<span>{{ chamado.status }}</span></span></td>
 				<!-- -->
 				{% endfor %}
 				<!-- Conclui o Loop -->
 
 			</tr>
+
+	</table>
 </div>
-</table>
+
+
+<!-- fimteste -->
+
+</div>
+
+<ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
+  </ul>
+
+ </div>

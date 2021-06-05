@@ -1,3 +1,5 @@
+#KELVYNN JOSÉ DA SILVA - IFPR - 2021
+
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.contrib.auth.forms import UserCreationForm
@@ -23,7 +25,9 @@ Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
 
 Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
 
-Novos_Chamados = 1
+
+
+
 
 #
 
@@ -114,24 +118,72 @@ def sair(request):
     return HttpResponseRedirect('/')
 
 
-def erro_404(request):
-    return render(request, '404.html')
-
-
 
 @login_required
-def chamados(request):
+def ver_chamado(request, id_chamado):
+    chamado = Chamado.object.get(id=id_chamado)
+    context = {
+        "chamado" : chamado
+    }
+    return render(request,"chamado.html", context)
+
+
+#Funções relacionadas à chamados
+
+@login_required
+def novo_chamado(request):
     context = {}
-    context['Nome_Sistema'] = Nome_Sistema
-    return render(request, "chamados.html", context)
+
+    if request.method == 'POST':
+
+        usuario = request.user.nome_completo #Obtem o usuário do termo user dentro da request
+        titulo_chamado = request.POST.get('titulo_chamado')
+        texto_chamado = request.POST.get('texto_chamado')
+        prioridade_chamado = request.POST.get('nivel_prioridade')
+        topico_chamado = request.POST.get('topico_chamado')
+        local_chamado = request.POST.get('local_chamado')
+
+        print(titulo_chamado)
+
+        nov_cham = Chamado.objects.create(autor = usuario, titulo = titulo_chamado, prioridade = prioridade_chamado, status = 'aberto', descricao = texto_chamado, local_afetado = local_chamado)
+        nov_cham.save()
+        messages.success(request,'Chamado aberto com successo')
+
+        context['Nome_Sistema'] = Nome_Sistema
+        return render(request, "painel.html", context)
+    else:
+        messages.info(request,'Utilize o painel para abrir um novo chamado')
+        return HttpResponseRedirect(request,'home')
+
+
+
+
+
+
+def obter_chamados():
+    chamados_sis = Chamado.objects.all()
+
+    return chamados_sis
+
+def obter_novos_chamados(): #Obtem a query com todos os chamados que não foram lidos ainda
+    chamados_novs = Chamado.objects.all().filter(foi_lido = False).count()  
+
+    return chamados_novs
+
+
 
 @login_required
 def painel(request):
+    chamados_si = obter_chamados()
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+
     context = {}
     
     context['Nome_Sistema'] = Nome_Sistema
-    context['Novos_Chamados'] = Novos_Chamados
-    context['chamados'] = chamados_sis
+    context['Novos_Chamados'] = novs_cham
+
+    context['chamados'] = chamados_si
 
 
     return render(request, "painel.html", context)
@@ -139,5 +191,22 @@ def painel(request):
 
 
 
+
+# SEÇÃO DE USUARIOS
+@login_required
+def usuarios(request):
+    context = {}
+    usuarios = obter_usuarios()
+    context['usuarios'] = usuarios
+
+    return render(request, "usuarios.html", context)
+
+
+def obter_usuarios():
+    usuarios = Usuario.objects.all()
+    return usuarios
+
+def remover_usuario(nome_user):
+    pass
 
 

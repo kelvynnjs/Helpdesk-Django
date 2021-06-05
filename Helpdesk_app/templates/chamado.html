@@ -1,0 +1,94 @@
+<!-- Kelvynn José da Silva -->
+
+<!-- Trata-se do modelo base da página individual do chamado-->
+
+
+{% extends 'base.html' %}
+{% block title %} Chamado Nº {{chamado.id}} {% endblock  %}
+
+{% block body %} {% include "navbar_painel.html" %}
+<!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
+{% endblock %}
+{% block content %} {% include 'notificacoes.html'%}
+<div class="card" style='max-width: 60rem; background-color: #7cccaa;'>
+  <div class="card-body">
+    <span class='badge badge-primary'></span>
+    <div class='card-header bg-dark text-white'
+      style='margin-top: 2rem;max-width: 60rem; max-height: 15rem;font-weight: 600;'>
+      <h5 style="margin-top:5px;"> <a href='#' class='badge badge-light'>CHAMADO Nº # {{chamado.id}}
+          <!-- colocar o número do chamado aqui --></a> <a style="text-transform: capitalize">- {{chamado.titulo}}</a>
+        <a style='margin-left: 5px; text-transform:uppercase;' href='#'  
+
+        {% if chamado.status == "excluido"%} class="badge badge-danger {% endif %} 
+        {% if chamado.status == 'fechado'%} class="badge badge-warning{% endif %}
+        {% if chamado.status == 'aberto'%} class="badge badge-primary {% endif %}
+        {% if chamado.status == 'pendente'%} class="badge badge-info {% endif %}
+        {% if chamado.status == 'resolvido'%} class="badge badge-success {% endif %}'>
+        {{chamado.status}}
+
+
+
+          <!-- alterar com o status do chamado --></a href='#'> </h5>
+    </div>
+    <div class='card-header text-muted bg-dark text-white'>Criado em 02/06/2021 por: Nome Completo da Silva</div>
+    <div class='card-body' style='background-color: #e6f0f2; padding-bottom: 2rem;'>
+      <strong>
+        <p class='card-text' style='text-transform:uppercase;'> Prioridade: 
+        <a {% if chamado.prioridade == "alta"%} class="badge badge-danger {% endif %} 
+				{% if chamado.prioridade == 'media'%}
+        class="badge badge-warning {% endif %}
+
+				{% if chamado.prioridade == 'baixa'%}
+				class="badge badge-light {% endif %}">{{chamado.prioridade}}</a>
+          <!-- colocar o nome da prioridade e a cor -->
+        </p>
+      </strong>
+      <strong>
+        <p class='card-text'> Local/Setor/Seção:
+          <!-- colocar o nome variavel do setor -->
+        </p>
+      </strong>
+    </div>
+
+    <div class="card-header bg-dark text-white" style='max-width: 60rem; max-height: 15rem;font-weight: 600;'>Descrição
+      Do chamado:
+    </div>
+    <div class='card-body' style='background-color: #e6f0f2;'>
+      <p class='card-text'>{{chamado.descricao}}</p>
+    </div>
+    <div class="card-header bg-dark text-white">
+      Anexos
+    </div>
+    {% if chamado.anexos is not None and chamado.anexos > 0 %}
+    <!-- Verifica se existem anexos no chamado atual -->
+
+
+    <div class='card-body' style='max-width: 60rem;background-color: #e6f0f2;'>
+      <ul class="list-group list-group-flush">
+        {% endif %}
+
+        {% for anexo in chamado.anexos %}
+        <!-- SE HOUVEREM ANEXOS, FAZER FOR LOOP E APRESENTA-LOS AQUI  -->
+
+        <li class="list-group-item" style=";"><a onclick="window.open('{{anexo.link}}')"
+            class='btn btn-sm btn-danger'>{{anexo.nome}}</a></li>
+        {% endfor%}
+
+        {% if chamado.anexos %}
+
+      </ul>
+    </div>
+    {% endif %}
+    <div class='card-header text-muted bg-dark text-white'>Chamado Nº</div>
+
+  </div>
+
+  </body>
+
+
+
+
+
+  </html>
+
+  {% endblock %}

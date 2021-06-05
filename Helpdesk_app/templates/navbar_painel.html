@@ -1,184 +1,188 @@
-
 <!-- FIM -->
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="http://localhost:8000">{{Nome_Sistema}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'painel' %}">
           <i class="fa fa-home"></i>
           Início
           <span class="sr-only">(current)</span>
-          </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-ticket">
-          {%if Novos_Chamados > 0%}
-            <span class="badge badge-danger">{{Novos_Chamados}}</span>
-            {% endif %}
-          </i>
-          Chamados
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == "/painel/"  %} active" {% endif %} href="/painel">
+        <i class="fa fa-ticket">
+        {% if Novos_Chamados is not None and Novos_Chamados > 0 %} <!-- Quantidade de chamados na area de notificação -->
+        <span class="badge badge-danger">{{Novos_Chamados}}</span>
+      {% endif %}
+      </i>
+      Chamados
+    </a>
+  </li>
+  
+  
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-user">
+      </i>
+      Dropdown
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item {% if request.path == "/cadastro/"  %} active" {% endif %}" href="{% url 'cadastro'%}">
+      Cadastrar Usuario
+      <i class="fa fa-user-plus"></i>
+    </a>
     
-    
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fa fa-envelope-o">
-            <span class="badge badge-primary">11</span>
-          </i>
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav ">
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-user-circle">
-          </i>
-          Perfil
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fa fa-cogs"></i>
-          Configurações
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/sair">
-          <i class="fa fa-sign-out"></i>
-          Sair
-        </a>
-      </li>
-    </ul>
-  </div>
+    <a class="dropdown-item {% if request.path == "/usuarios/"  %} active" {% endif %}" href="{% url 'usuarios'%}">
+    Listar Usuarios
+    <i class="fa fa-users"></i>
+  </a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="#">Another action</a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="#">Something else here</a>
+</div>
+</li>
+</ul>
+<ul class="navbar-nav ">
+<li class="nav-item">
+<a class="nav-link {% if request.path == "/perfil/"  %} active" {% endif %}" href="/perfil">
+<i class="fa fa-user-circle">
+</i>
+Perfil
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link {% if request.path == "/config/"  %} active" {% endif %}" href="/config">
+<i class="fa fa-cogs"></i>
+Configurações
+</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/sair">
+<i class="fa fa-sign-out"></i>
+Sair
+</a>
+</li>
+</ul>
+</div>
 </nav>
-
-
 <style>
-  .navbar-icon-top .navbar-nav .nav-link > .fa {
-    position: relative;
-    width: 36px;
-    font-size: 24px;
-  }
-  
-  .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-    font-size: 0.75rem;
-    position: absolute;
-    right: 0;
-    font-family: sans-serif;
-  }
-  
-  .navbar-icon-top .navbar-nav .nav-link > .fa {
-    top: 3px;
-    line-height: 12px;
-  }
-  
-  .navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-    top: -10px;
-  }
-  
-  @media (min-width: 576px) {
-    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
-      text-align: center;
-      display: table-cell;
-      height: 70px;
-      vertical-align: middle;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  
-    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
-      display: block;
-      width: 48px;
-      margin: 2px auto 4px auto;
-      top: 0;
-      line-height: 24px;
-    }
-  
-    .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
-      top: -7px;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
-      text-align: center;
-      display: table-cell;
-      height: 70px;
-      vertical-align: middle;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  
-    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
-      display: block;
-      width: 48px;
-      margin: 2px auto 4px auto;
-      top: 0;
-      line-height: 24px;
-    }
-  
-    .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
-      top: -7px;
-    }
-  }
-  
-  @media (min-width: 992px) {
-    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
-      text-align: center;
-      display: table-cell;
-      height: 70px;
-      vertical-align: middle;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  
-    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
-      display: block;
-      width: 48px;
-      margin: 2px auto 4px auto;
-      top: 0;
-      line-height: 24px;
-    }
-  
-    .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
-      top: -7px;
-    }
-  }
-  
-  @media (min-width: 1200px) {
-    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
-      text-align: center;
-      display: table-cell;
-      height: 70px;
-      vertical-align: middle;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-  
-    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
-      display: block;
-      width: 48px;
-      margin: 2px auto 4px auto;
-      top: 0;
-      line-height: 24px;
-    }
-  
-    .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
-      top: -7px;
-    }
-  }
-   </style>
+.navbar-icon-top .navbar-nav .nav-link > .fa {
+position: relative;
+width: 36px;
+font-size: 24px;
+}
+
+.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+font-size: 0.75rem;
+position: absolute;
+right: 0;
+font-family: sans-serif;
+}
+
+.navbar-icon-top .navbar-nav .nav-link > .fa {
+top: 3px;
+line-height: 12px;
+}
+
+.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
+top: -10px;
+}
+
+@media (min-width: 576px) {
+.navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
+text-align: center;
+display: table-cell;
+height: 70px;
+vertical-align: middle;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
+display: block;
+width: 48px;
+margin: 2px auto 4px auto;
+top: 0;
+line-height: 24px;
+}
+
+.navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
+top: -7px;
+}
+}
+
+@media (min-width: 768px) {
+.navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
+text-align: center;
+display: table-cell;
+height: 70px;
+vertical-align: middle;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
+display: block;
+width: 48px;
+margin: 2px auto 4px auto;
+top: 0;
+line-height: 24px;
+}
+
+.navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
+top: -7px;
+}
+}
+
+@media (min-width: 992px) {
+.navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
+text-align: center;
+display: table-cell;
+height: 70px;
+vertical-align: middle;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
+display: block;
+width: 48px;
+margin: 2px auto 4px auto;
+top: 0;
+line-height: 24px;
+}
+
+.navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
+top: -7px;
+}
+}
+
+@media (min-width: 1200px) {
+.navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
+text-align: center;
+display: table-cell;
+height: 70px;
+vertical-align: middle;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+.navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
+display: block;
+width: 48px;
+margin: 2px auto 4px auto;
+top: 0;
+line-height: 24px;
+}
+
+.navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
+top: -7px;
+}
+}
+</style>
