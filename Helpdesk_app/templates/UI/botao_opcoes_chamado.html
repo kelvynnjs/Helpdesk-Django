@@ -1,0 +1,69 @@
+<!-- Modal de opções de chamado - Kelvynn José da Silva -->
+
+
+
+<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        
+<div class ='card' style='margin-bottom: 0px; margin-top: 0px'><div class="card-body">
+<form class='form' action ='/alterar_status/'method ='POST' >
+
+{% csrf_token %}
+
+<div style='display: inline-block;' class="form-group">
+<label style='text-transform: uppercase; margin-bottom: 4px;'class='badge label text-dark' for="selecionar_status">Alterar Status</label>
+
+<select id="selecionar_status" name='selecionar_status' class="form-control" data-role="select-dropdown">
+
+<option  value ='resolvido'>Resolvido</a></option>
+
+<option  value ='aberto'>Aberto</option>
+
+<option value ='pendente'>Pendente </option>
+
+<option value ='fechado'>Fechado</option>
+
+</select>
+</div>
+
+<input type="hidden" name="id_chamado" value='{{chamado.id}}'>
+<button type='submit' class ='btn btn-sm btn-square btn-outline-secondary'>Aplicar</button>
+
+</form>
+
+
+<form class='form' action ='/alterar_prioridade/' method ='POST'>
+{% csrf_token %}
+
+<div style='display: inline-block;' class="form-group">
+<label style='text-transform: uppercase; margin-bottom: 4px;'class='badge label text-dark' for="selecionar_prioridade">Alterar Prioridade</label>
+
+<select id="selecionar_prioridade" name='selecionar_prioridade' class="form-control" data-role="select-dropdown">
+
+<option value ='baixa'>Baixa</a></option>
+
+<option value ='media'>Media</option>
+
+<option value ='alta'>Alta </option>
+
+</select>
+</div>
+
+
+<input type="hidden" name="id_chamado" value='{{chamado.id}}'>
+
+<button type='submit' style=' margin-top:0px'class ='btn btn-sm btn-square btn-outline-secondary'>Aplicar</a>
+</form>
+
+<br>
+
+
+
+</div></div>
+
+</div>
+</div>
+
+
+</div>

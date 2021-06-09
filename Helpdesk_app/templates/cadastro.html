@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block content%}
 
 {% if request.user.is_atendente%}
@@ -12,7 +11,7 @@
 
 {% endif %}
 
-{% include 'notificacoes.html'%}
+{% include "UI/notificacoes.html"%}
 
 <style> body{ background-color:#494949;}</style>
 
@@ -28,24 +27,24 @@
          <br>
          <!-- Nome de Usuario -->
          <strong><label for="username" class="visually-hidden">Nome de Usuário:</label></strong>
-         <input id ='username' name='username' type="username" class="form-control" placeholder="Digite aqui o seu Nome de Usuário" required autofocus>
+         <input required id ='username' name='username' type="username" class="form-control" placeholder="Digite aqui o seu Nome de Usuário" required autofocus>
          <!--  -->
 
          <!-- Nome Completo -->
          <strong><label style='margin-top:5px;' for="nome_completo" class="visually-hidden">Nome Completo:</label></strong>
-         <input id ='nome_completo' name='nome_completo' style='margin-top:5px;' type="text" class="form-control"
+         <input required id ='nome_completo' name='nome_completo' style='margin-top:5px;' type="text" class="form-control"
             placeholder="Digite aqui o seu Nome Completo" required>
          <!--  -->
 
 
          <!-- Email -->
          <strong><label style='margin-top:5px;' for="email" class="visually-hidden">Email:</label></strong>
-         <input id ='email' name='email' style='margin-top:5px;' type="email" class="form-control" placeholder="Digite aqui o seu E-mail" required>
+         <input required id ='email' name='email' style='margin-top:5px;' type="email" class="form-control" placeholder="Digite aqui o seu E-mail" required>
          <!--  -->
 
          <!-- Senha -->
         <strong> <label style='margin-top:5px;' for="password" class="visually-hidden">Senha:</label></strong>
-         <input id ='password' name='password' style='margin-top:5px;' type="password" class="form-control" placeholder="Digite aqui a sua Senha"
+         <input required id ='password' name='password' style='margin-top:5px;' type="password" class="form-control" placeholder="Digite aqui a sua Senha"
             required>
          <!--  -->
 

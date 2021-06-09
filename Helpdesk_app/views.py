@@ -16,21 +16,12 @@ import datetime
 
 
 
-
-
 #VARIAVEIS e CONSTANTES
 
 
 Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
 
 Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
-
-
-
-
-
-#
-
 
 
 #Cria a pagina inicial
@@ -121,10 +112,18 @@ def sair(request):
 
 @login_required
 def ver_chamado(request, id_chamado):
-    chamado = Chamado.object.get(id=id_chamado)
-    context = {
-        "chamado" : chamado
-    }
+    chamados_si = obter_chamados()
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+    chamado = Chamado.objects.get(id=id_chamado)
+    context = {}
+
+    context['chamado'] = chamado
+    context['Nome_Sistema'] = Nome_Sistema
+    context['Novos_Chamados'] = novs_cham
+
+    context['chamados'] = chamados_si
+
     return render(request,"chamado.html", context)
 
 
@@ -156,10 +155,6 @@ def novo_chamado(request):
         return HttpResponseRedirect(request,'home')
 
 
-
-
-
-
 def obter_chamados():
     chamados_sis = Chamado.objects.all()
 
@@ -171,9 +166,69 @@ def obter_novos_chamados(): #Obtem a query com todos os chamados que não foram 
     return chamados_novs
 
 
+@login_required
+def chamados_abertos(request):
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+    chamados_ab = Chamado.objects.all().filter(status='aberto')
+    context = {}
+
+    context['chamados'] = chamados_ab
+    context['Novos_Chamados'] = novs_cham
+    context['Nome_Sistema'] = Nome_Sistema
+    context['filtro'] = 'abertos'
+
+    return render(request, "painel.html", context)
+
 
 @login_required
-def painel(request):
+def chamados_excluidos(request):
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+    chamados_ex = Chamado.objects.all().filter(status='excluido')
+    context = {}
+
+    context['chamados'] = chamados_ex
+    context['Novos_Chamados'] = novs_cham
+    context['Nome_Sistema'] = Nome_Sistema
+    context['filtro'] = 'excluidos'
+
+    return render(request, "painel.html", context)
+
+
+
+@login_required
+def chamados_resolvidos(request):
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+    chamados_re = Chamado.objects.all().filter(status='resolvido')
+    context = {}
+
+    context['chamados'] = chamados_re
+    context['Novos_Chamados'] = novs_cham
+    context['Nome_Sistema'] = Nome_Sistema
+    context['filtro'] = 'resolvidos'
+
+    return render(request, "painel.html", context)
+
+@login_required
+def chamados_pendentes(request):
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+    chamados_pe = Chamado.objects.all().filter(status='pendentes')
+    context = {}
+
+    context['chamados'] = chamados_pe
+    context['Novos_Chamados'] = novs_cham
+    context['Nome_Sistema'] = Nome_Sistema
+    context['filtro'] = 'resolvidos'
+
+    return render(request, "painel.html", context)
+
+
+
+@login_required
+def painel(request):   #MOSTRA O PAINEL PRINCIPAL E TODOS OS CHAMADOS
     chamados_si = obter_chamados()
     novs_cham = obter_novos_chamados()
     Usuario = request.user
@@ -184,10 +239,39 @@ def painel(request):
     context['Novos_Chamados'] = novs_cham
 
     context['chamados'] = chamados_si
+    context['filtro'] = 'todos'
 
 
     return render(request, "painel.html", context)
 
+
+@login_required
+def alterar_status(request):
+    if request.method =='POST':
+        status_novo = request.POST.get('selecionar_status')
+        id_chamado = request.POST.get('id_chamado')
+        o_chamado = Chamado.objects.get(id=id_chamado)
+        o_chamado.status = status_novo
+        o_chamado.save()
+        messages.success(request,'Status do chamado Nº {} defino como {} com sucesso!'.format(id_chamado,status_novo.upper()))
+        return redirect('/chamado/{}'.format(id_chamado),request)
+
+
+
+
+@login_required
+def alterar_prioridade(request):
+    if request.method =='POST':
+        prioridade_nova = request.POST.get('selecionar_prioridade')
+        id_chamado = request.POST.get('id_chamado')
+        o_chamado = Chamado.objects.get(id=id_chamado)
+        o_chamado.prioridade = prioridade_nova
+        o_chamado.save()
+
+
+
+        messages.success(request,'Prioridade do chamado Nº {} defino como {} com sucesso!'.format(id_chamado,prioridade_nova.upper()))
+        return redirect('/chamado/{}'.format(id_chamado),request)
 
 
 
@@ -198,6 +282,14 @@ def usuarios(request):
     context = {}
     usuarios = obter_usuarios()
     context['usuarios'] = usuarios
+    chamados_si = obter_chamados()
+    novs_cham = obter_novos_chamados()
+    Usuario = request.user
+
+    context['Nome_Sistema'] = Nome_Sistema
+    context['Novos_Chamados'] = novs_cham
+
+    context['chamados'] = chamados_si
 
     return render(request, "usuarios.html", context)
 

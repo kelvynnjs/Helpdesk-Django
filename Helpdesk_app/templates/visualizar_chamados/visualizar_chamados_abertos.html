@@ -1,27 +1,31 @@
 <!-- Visualizador de chamados dos atendentes -->
 
-{% if chamados %}
-<!-- VERIFICA SE EXISTEM CHAMADOS -->
 
-
-
-<!-- <p>{{ request.path }}</p> -->
 
 <div class="card text-center bg-white">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link " href="#">Em Aberto</a> <!-- trocar o active dependendo da página -->
+        <a class="nav-link {% if request.path == 'painel/abertos' %} active {% endif %} " {% if request.path == 'painel/abertos' %} href="#"{% else %} href="{% url 'chamados_abertos'%}" {% endif %}>Em Aberto</a> <!-- trocar o active dependendo da página -->
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Todos</a>
+        <a class="nav-link {% if request.path == '/painel/' %} active {% endif %} " {% if request.path == 'painel/' %} href="#"{% else %} href='/painel' {% endif %}href="{% url 'painel'%}">Todos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Excluídos</a>
+        <a class = "nav-link {% if request.path == 'painel/excluidos' %} active {% endif %} " {% if request.path == 'painel/excluidos' %} href="#"{% else %} href="{% url 'chamados_excluidos' %}" {% endif %} >Excluídos</a>
+      </li>
+	    <li class="nav-item">
+        <a class = "nav-link {% if request.path == 'painel/resolvidos' %} active {% endif %} " {% if request.path == 'painel/resolvidos' %} href="#"{% else %} href="{% url 'chamados_resolvidos' %}" {% endif %} >Resolvidos</a>
+      </li>
+	   <li class="nav-item">
+        <a class = "nav-link {% if request.path == 'painel/pendentes' %} active {% endif %} " {% if request.path == 'painel/pendentes' %} href="#"{% else %} href="{% url 'chamados_pendentes' %}" {% endif %} >Pendentes</a>
       </li>
     </ul>
   </div>
   <div style='padding-bottom: 7rem;'class="card-body">
+
+{% if chamados %}
+<!-- VERIFICA SE EXISTEM CHAMADOS -->
 
 
 
@@ -44,7 +48,17 @@
 			</tr>
 		</thead>
 		<tbody>
+			{% else %}
+
+			<h5>Não existem chamados com esse filtro </h5>
+
+
 			{% endif %}
+
+
+
+
+
 			{% for chamado in chamados %}
 			<!-- loop em todos os chamados -->
 
@@ -66,7 +80,7 @@
 
 				<td style='border-color: #343A40;text-align: center; font-weight: 600'>{{ chamado.id }}</td>
 				<td style='border-color: #343A40; text-transform: capitalize; font-weight: 550'>{{ chamado.autor }}</td>
-				<td style='border-color: #343A40'><a style='font-weight: 600;'>{{ chamado.titulo }}</a>
+				<td style='border-color: #343A40;'><a href='http://localhost:8000/chamado/{{chamado.id}}' style='font-weight: 600;'>{{ chamado.titulo|lower|capfirst|truncatechars:35 }}</a>
 					{% if chamado.foi_lido == False %} <small><span class="badge badge-success">Novo</span></small>
 					{% endif %}</td>
 				<td style='border-color: #343A40'>{{ chamado.topico }}</td>

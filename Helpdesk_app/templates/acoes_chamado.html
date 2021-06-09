@@ -18,18 +18,18 @@
               <h5> Abrir Novo Chamado <span style='color:lightgreen;' class="fa fa-plus fa-lg"></span></h5>
               <br>
               <label for="titulo_chamado">Titulo do Chamado:</label>
-              <input type="text" class="form-control" name = "titulo_chamado" id="titulo_chamado" maxlength = "50" placeholder="Digite aqui o Titulo do seu chamado">
+              <input required type="text" class="form-control" name = "titulo_chamado" id="titulo_chamado" maxlength = "50" placeholder="Digite aqui o Titulo do seu chamado">
             </div>
             
             <div class="form-group">
               <label for="texto_chamado">Descrição do chamado:</label>
-              <textarea class="form-control rounded-0" name = 'texto_chamado'id="texto_chamado" rows="7"></textarea>
+              <textarea required class="form-control rounded-0" name = 'texto_chamado'id="texto_chamado" rows=""></textarea>
             </div>
 
               <div class="form-group">
-              <label for="local_chamado">Titulo do Chamado:</label>
-              <input type="text" class="form-control" name = "local_chamado" id="local_chamado" maxlength = "50" placeholder="Ex: 'Financeiro', 'Jurídico', 'Administrativo'">
-              <small id="dica_local" class="form-text text-muted">Local onde o solicitante está situado / suporte é necessário.</small>
+              <label for="local_chamado">Local afetado:</label>
+              <input required type="text" class="form-control" name = "local_chamado" id="local_chamado" maxlength = "50" placeholder="Ex: 'Financeiro', 'Jurídico', 'Administrativo'">
+              <small id="dica_local" class="form-text text-muted">Local onde o solicitante está situado / onde o suporte é necessário.</small>
             </div>
 
 
@@ -37,7 +37,7 @@
               <!-- Tópicos de ajuda/solicitação -->
               <div class="form-group">
                 <label for="topico_chamado">Tópico de suporte:</label>
-                <select class="form-control" name = 'topico_chamado' id="topico_chamado">
+                <select required class="form-control" name = 'topico_chamado' id="topico_chamado">
                   <option value='Dificuldade de acesso'>Dificuldade de acesso</option>
                   <option value='Solicitar Instalação'>Solicitar Instalação</option>
                   <option value='Suporte com o computador'>Suporte com o computador</option>
@@ -53,7 +53,7 @@
 
             <div class="form-group">
               <label for="nivel_prioridade">Nível de Prioridade:</label>
-              <select class="form-control" name= 'nivel_prioridade' id="nivel_prioridade">
+              <select required class="form-control" name= 'nivel_prioridade' id="nivel_prioridade">
                 <option value='baixa'>Baixa</option>
                 <option value='media'>Media</option>
                 <option value='alta'>Alta</option>

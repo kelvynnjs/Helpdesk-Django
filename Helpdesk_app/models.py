@@ -34,6 +34,8 @@ class Chamado(models.Model):
      ('fechado', 'Fechado'),
      ('excluido', 'Excluido') ]
 
+
+
     autor = models.CharField(max_length=50)
     prioridade = models.CharField(max_length=30, choices=OPCOES_PRIORIDADE)
     agente_atribuido = models.CharField(max_length=100, default = None, null=True) # Não será usado foreign Key, #pois caso um usuário seja deletado, o nome continuará no banco de dados 
@@ -44,6 +46,7 @@ class Chamado(models.Model):
     local_afetado = models.CharField(max_length=50, default=None) #Local onde a pessoa se encontra
     hora_abertura = models.DateTimeField(auto_now_add=True)
     foi_lido = models.BooleanField(default=False) #Define se o chamado já foi lido por um atendente
+  
     
 
 

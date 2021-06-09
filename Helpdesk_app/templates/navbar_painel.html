@@ -1,4 +1,4 @@
-<!-- FIM -->
+
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="http://localhost:8000">{{Nome_Sistema}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +14,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {% if request.path == "/painel/"  %} active" {% endif %} href="/painel">
+        <a href='{% url 'painel'%}' class="nav-link {% if request.path == "/painel/"  %} active" {% endif %} href="/painel">
         <i class="fa fa-ticket">
         {% if Novos_Chamados is not None and Novos_Chamados > 0 %} <!-- Quantidade de chamados na area de notificação -->
         <span class="badge badge-danger">{{Novos_Chamados}}</span>
@@ -26,12 +26,12 @@
   
   
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="drop_usuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fa fa-user">
       </i>
-      Dropdown
+      Usuários 
     </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    <div class="dropdown-menu" aria-labelledby="drop_usuario">
       <a class="dropdown-item {% if request.path == "/cadastro/"  %} active" {% endif %}" href="{% url 'cadastro'%}">
       Cadastrar Usuario
       <i class="fa fa-user-plus"></i>

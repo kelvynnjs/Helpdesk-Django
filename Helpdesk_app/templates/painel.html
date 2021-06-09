@@ -5,13 +5,50 @@
   
 {% block body %} {% include "navbar_painel.html" %}
 
-<style> body{background-color: lightcoral; }</style>
+<style> body{
+
+background-color: lightcyan; }
+
+a:link {
+  color: #23272B;
+    decoration: none; 
+}
+
+a:visited {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+
+}
+
+a:hover {
+  color: #23272B;
+text-decoration: black; 
+    decoration: none; 
+}
+
+a:active {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+}
+</style>
+
+
+</style>
+
+
+
+
+
+
+
 
   <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 {% endblock %}
 
 
-{% block content %} {% include 'notificacoes.html'%} 
+{% block content %} {% include "UI/notificacoes.html"%} 
 
 
 
@@ -20,8 +57,43 @@
 {% include "acoes_chamado.html" %}
 
 
-<!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados -->
-{% include "visualizar_chamados.html" %}
+<!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados, todos, ou com filtro "abertos", fechados e concluidos -->
+
+{% if filtro == 'abertos' %}
+
+{% include "visualizar_chamados/visualizar_chamados_abertos.html" %}
+
+{% endif %}
+
+
+
+{% if filtro == 'todos' %}
+
+{% include "visualizar_chamados/visualizar_chamados_todos.html" %}
+
+{% endif %}
+
+
+
+{% if filtro == 'excluidos' %}
+
+{% include "visualizar_chamados/visualizar_chamados_excluidos.html" %}
+
+{% endif %}
+
+
+{% if filtro == 'resolvidos' %}
+
+{% include "visualizar_chamados/visualizar_chamados_resolvidos.html" %}
+
+{% endif %}
+
+
+{% if filtro == 'pendentes' %}
+
+{% include "visualizar_chamados/visualizar_chamados_resolvidos.html" %}
+
+{% endif %}
 
 
 
