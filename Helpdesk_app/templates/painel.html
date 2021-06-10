@@ -59,41 +59,11 @@ a:active {
 
 <!-- Verifica se o usuário é um atendente, se sim, mostra os chamados realizados, todos, ou com filtro "abertos", fechados e concluidos -->
 
-{% if filtro == 'abertos' %}
-
-{% include "visualizar_chamados/visualizar_chamados_abertos.html" %}
-
-{% endif %}
 
 
-
-{% if filtro == 'todos' %}
-
-{% include "visualizar_chamados/visualizar_chamados_todos.html" %}
-
-{% endif %}
+{% include "visualizar_chamados.html" %}
 
 
-
-{% if filtro == 'excluidos' %}
-
-{% include "visualizar_chamados/visualizar_chamados_excluidos.html" %}
-
-{% endif %}
-
-
-{% if filtro == 'resolvidos' %}
-
-{% include "visualizar_chamados/visualizar_chamados_resolvidos.html" %}
-
-{% endif %}
-
-
-{% if filtro == 'pendentes' %}
-
-{% include "visualizar_chamados/visualizar_chamados_resolvidos.html" %}
-
-{% endif %}
 
 
 

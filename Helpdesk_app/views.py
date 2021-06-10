@@ -165,6 +165,7 @@ def obter_novos_chamados(): #Obtem a query com todos os chamados que não foram 
 
     return chamados_novs
 
+#   Listagem de chamados em suas categorias ------------------------------------------------------------
 
 @login_required
 def chamados_abertos(request):
@@ -215,13 +216,13 @@ def chamados_resolvidos(request):
 def chamados_pendentes(request):
     novs_cham = obter_novos_chamados()
     Usuario = request.user
-    chamados_pe = Chamado.objects.all().filter(status='pendentes')
+    chamados_pe = Chamado.objects.all().filter(status='pendente')
     context = {}
 
     context['chamados'] = chamados_pe
     context['Novos_Chamados'] = novs_cham
     context['Nome_Sistema'] = Nome_Sistema
-    context['filtro'] = 'resolvidos'
+    context['filtro'] = 'pendentes'
 
     return render(request, "painel.html", context)
 
