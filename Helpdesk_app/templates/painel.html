@@ -1,10 +1,6 @@
+<!-- Painel de Gerenciamento - Kelvynn José da Silva -->
+
 {% extends "base.html" %}
-
-{% block title %} Painel {% endblock  %}
-
-  
-{% block body %} {% include "navbar_painel.html" %}
-
 <style> body{
 
 background-color: lightcyan; }
@@ -35,9 +31,10 @@ a:active {
 </style>
 
 
-</style>
+{% block title %} Painel {% endblock  %}
 
-
+  
+{% block body %} {% include "navbar_painel.html" %}
 
 
 
@@ -47,7 +44,7 @@ a:active {
   <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 {% endblock %}
 
-
+<!-- Inclue as notificações -->
 {% block content %} {% include "UI/notificacoes.html"%} 
 
 
@@ -62,12 +59,6 @@ a:active {
 
 
 {% include "visualizar_chamados.html" %}
-
-
-
-
-
-
 
 
 

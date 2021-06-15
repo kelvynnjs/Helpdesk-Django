@@ -1,51 +1,40 @@
 <!DOCTYPE html>
-
 {% load static %}
-
 <html lang="pt-br">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
- 
-
-  <title>{% block title %} {% endblock %}</title>
-
-
-
-
-  <link rel='icon' type='image/png' href="{% static 'images/favicon.ico' %}">
-  
-
-
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
-  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-
-  <link rel="stylesheet" href="{% static 'css/toastr.min.css' %}">
-
-
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/popper.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.js' %}"></script>
-  <script src="{% static 'js/toastr.min.js' %}"></script>
-
-
-  {% block head %} {% endblock %}
-
-
-
-</head>
-
-<body>
-
-{% block body %} {% endblock %}
-
-
-
-
-  {% block content %}{% endblock %}
-</body>
-
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <title>{% block title %} {% endblock %}</title>
+    <link rel='icon' type='image/png' href="{% static 'images/favicon.ico' %}">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/toastr.min.css' %}">
+    <style> body{font-family: 'Roboto', sans-serif !important;}</style>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/toastr.min.js' %}"></script>
+    <!-- DATATABLES -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'DataTables/datatables.bootstrap4.css' %}"/>
+    
+    <script type="text/javascript" src="{% static 'DataTables/datatables.bootstrap.js' %}"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
+    
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
+    <script type="text/javascript" src="{% static 'DataTables/accent-neutralise.js' %}"></script>
+    <script type="text/javascript" src="{% static 'DataTables/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'DataTables/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'DataTables/datetime-moment.js' %}"></script>
+    <link rel='stylesheet' href='https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css'>
+    <script type='text/javascript'src='https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js'> </script>
+    {% block head %} {% endblock %}
+  </head>
+  <body>
+    {% block body %} {% endblock %}
+    {% block content %}{% endblock %}
+  </body>
 </html>

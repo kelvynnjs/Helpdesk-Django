@@ -11,15 +11,10 @@
 {% block content %} {% include "UI/notificacoes.html"%}
 
 
-<div style='margin:20px'> 
-
 {% include "UI/botao_opcoes_chamado.html" %}
 
 
 
-
-
-</div>
 
 
 <style> body{background-color: #7cccaa; outline-color: transparent;} .corpo_card{background-color: #7cccaa; outline-color: transparent;}</style>
@@ -32,50 +27,49 @@
   <div class="card-body" style="max-width: 85rem;">
     
     
-    
 
 
     <span class='badge badge-primary'></span>
-    <div class='card-header bg-dark text-white'
-      style='margin-top: 2rem;max-width: 85rem; max-height: 15rem;font-weight: 600;'>
+    <div class='card-header bg-light text-dark'
+      style='margin-top: 2rem;max-width: 85rem; max-height: 15rem;font-weight: 570;'>
       <h5 style="margin-top:5px;"> <a class='bg-light text-dark'> CHAMADO Nº # {{chamado.id}}
         <!-- colocar o número do chamado aqui --></a> <a style="">- {{chamado.titulo|lower|capfirst}}</a>
-        <a style='margin-left: 5px; text-transform:uppercase;' href='#'
-          {% if chamado.status == "excluido"%} class="badge badge-danger" {% endif %}
-          {% if chamado.status == 'fechado'%} class="badge badge-warning"{% endif %}
-          {% if chamado.status == 'aberto'%} class="badge badge-primary" {% endif %}
-          {% if chamado.status == 'pendente'%} class="badge badge-info" {% endif %}
-          {% if chamado.status == 'resolvido'%} class="badge badge-success" {% endif %}>
-        {{chamado.status}} </a>
+        <span class='text-white' style='margin-left: 15px;'><a class ='container'
+                  {% if chamado.status == "excluido"%} class=" text-white"  style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #EC5858;'{% endif %}
+                                {% if chamado.status == 'fechado'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #EC8F6A;'{% endif %}
+                                {% if chamado.status == 'aberto'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #AC66CC;'{% endif %}
+                                {% if chamado.status == 'pendente'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #1EAE98;'{% endif %}
+                                {% if chamado.status == 'resolvido'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #54E346;'{% endif %}>
+                {{chamado.status}} </a></span>
 
  <span class='flex-d float-right'><button type="button" class="btn btn-light btn-md" data-toggle="modal" data-target="#mymodal"><span><i class="fa fa-bars" aria-hidden="true"></i></span></button></span>
  
         <!-- alterar com o status do chamado --></a href='#'> </h5>
       </div>
-      <div class='card-header bg-dark '><p class=' text-muted text-white'>Criado em 02/06/2021 por: Nome Completo da Silva</p>
+      <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em 02/06/2021 por: Nome Completo da Silva</p>
       <strong>          <!-- colocar o nome variavel do setor -->
-      <p class='card-text text-white'> PRIORIDADE:
-        <a {% if chamado.prioridade == "alta"%} class="badge badge-danger {% endif %}
+      <p style='font-weight: 570;' class='card-text text-dark'> PRIORIDADE:
+        <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger {% endif %}
         {% if chamado.prioridade == 'media'%}
-        class="badge badge-warning {% endif %}
+        class="badge text-white badge-warning {% endif %}
         {% if chamado.prioridade == 'baixa'%}
-        class="badge badge-light text-dark{% endif %}">{{chamado.prioridade|upper}}</a>
+        class="badge badge-primary text-light{% endif %}">{{chamado.prioridade|upper}}</a>
         <!-- colocar o nome da prioridade e a cor -->
       </p>
       </strong>
       
-      <small><p class='card-text text-white' style='font-weight: 600; display: inline;'>Local/Setor/Seção: <p class ='text-white'style='display: inline'>{{chamado.local_afetado|lower|capfirst}}</p></p></p></small>
+      <small><p class='card-text text-dark' style='font-weight: 580; display: inline;'>Local/Setor/Seção: <p class ='text-dark'style='display: inline; font-weight: 580'><strong>{{chamado.local_afetado|lower|capfirst}}</strong></p></p></p></small>
     </div>
     
-    <div class="card-header bg-dark text-white" style='max-width: 85rem; max-height: 15rem;font-weight: 600;'>Descrição
+    <div class="card-header bg-white text-dark" style='max-width: 85rem; max-height: 15rem;font-weight: 570;'>Descrição
       do chamado:
     </div>
     <div class='card-body' style='background-color: #e6f0f2;'>
-      <p class='card-text' style='padding-left: 1rem;'><h5><strong>{{chamado.titulo|lower|capfirst}}</strong></h5> <br>
+      <p class='card-text' style='padding-left: 1rem;'><h6><strong>{{chamado.titulo|lower|capfirst}}</strong></h6> <br>
 
       {{chamado.descricao}}</p>
     </div>
-    <div class="card-header bg-dark text-white">
+    <div class="card-header bg-white text-dark">
       Anexos
     </div>
     {% if chamado.anexos is not None and chamado.anexos > 0 %}
@@ -92,7 +86,7 @@
         </ul>
       </div>
     {% endif %}
-    <div class='card-header text-muted bg-dark text-white'>Chamado Nº {{chamado.id}}</div>
+    <div class='card-header text-muted bg-white text-dark'>Chamado Nº {{chamado.id}}</div>
   </div>
 
 
@@ -104,14 +98,26 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
+      var lista_marcados = []
+
+      lista_marcados[0] = {{chamado.id}}
        
+      $.ajax({
+      }
+      }
+ method: "POST",
+ url: "/ler_chamado/",
+ data: { id_chamado: lista_marcados,
+         foi_lido: "True"}
+})
+
+
+window.location.reload()
+
     });
 
 
-
-    function postToURL();{
-      
-    }
 </script>
 
 

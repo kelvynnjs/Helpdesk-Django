@@ -18,6 +18,9 @@ path('painel/pendentes', views.chamados_pendentes, name='chamados_pendentes'), #
 path('alterar_status/', views.alterar_status, name='alterar_status'), 
 path('alterar_prioridade/', views.alterar_prioridade, name='alterar_prioridade'), 
 
+path('ler_chamado/', views.ler_chamado, name='ler_chamado'), 
+
+
 path('sair/', views.sair, name='sair'),
 path('novo_chamado/', views.novo_chamado, name='novo_chamado'),
 path('chamado/<int:id_chamado>', views.ver_chamado, name='ver_chamado'),

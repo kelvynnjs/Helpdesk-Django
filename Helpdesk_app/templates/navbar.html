@@ -14,16 +14,31 @@
     </ul>
     <ul class="navbar-nav ">
   
+{% if request.user.is_authenticated == False %}
+
    <li class="nav-item">
         <a class="nav-link {% if request.path == "/cadastro/"  %} active" {% endif %}" href="{% url 'cadastro'%}">
           <i class="fa fa-user-plus"></i>
           Cadastro
         </a>
       </li>
+{% endif %}
 
-
+{% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link {% if request.path == "/login/"  %} active" {% endif %}" href="{% url 'login'%}">
+        <a class="nav-link" href="{% url 'sair'%}">
+          <i class="fa fa-sign-out"></i>
+          Sair
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+{% else %}
+     <li class="nav-item">
+        <a class="nav-link" href="{% url 'login'%}">
           <i class="fa fa-sign-in"></i>
           Entrar
         </a>
@@ -31,6 +46,15 @@
     </ul>
   </div>
 </nav>
+
+
+
+{% endif %}
+
+
+
+
+
 
 
 <style>
