@@ -36,7 +36,7 @@ def home(request):
 			return render(request, "home.html", context)
 	else:
 		
-		return render(request, "home.html", context)
+		return render(request,"home.html", context)
 
 
 
@@ -124,6 +124,12 @@ def sair(request):
 
 
 
+
+
+
+
+
+#LEITURA INDIVIDUAL DOS CHAMADOS
 @login_required
 def ver_chamado(request, id_chamado):
 	chamados_si = obter_chamados()
@@ -140,12 +146,12 @@ def ver_chamado(request, id_chamado):
 
 	return render(request,"chamado.html", context)
 
-
+#MARCA CHAMADO COMO "LIDO, E RETIRA A TAG 'NOVO'
 @login_required
 @csrf_exempt
 def ler_chamado(request):
 
-	if request.is_ajax():
+	if request.is_ajax() and request.method =='POST':
 
 		id_lido = request.POST.getlist('id_chamado[]')
 		foi_lido = request.POST.get('foi_lido')
@@ -159,9 +165,7 @@ def ler_chamado(request):
 
 
 		return(HttpResponse('success'))
-				
-	
-
+			
 
 	else:
 		print('não é ajax')
@@ -198,8 +202,8 @@ def novo_chamado(request):
 		return HttpResponseRedirect(request,'home')
 
 
-def obter_chamados():
-	chamados_sis = Chamado.objects.all()
+def obter_chamados(): #Lembrar de obter chamados usando essa função para evitar chamados com status excluído
+	chamados_sis = Chamado.objects.all().exclude(status='excluido')
 
 	return chamados_sis
 
@@ -207,6 +211,43 @@ def obter_novos_chamados(): #Obtem a query com todos os chamados que não foram 
 	chamados_novs = Chamado.objects.all().filter(foi_lido = False).count()  
 
 	return chamados_novs
+
+@login_required
+@csrf_exempt
+def excluir_chamados(request): #Exclue os chamados selecionados
+	if request.is_ajax and request.method == 'POST':
+	
+		ids_lidos = request.POST.getlist('id_chamado[]')
+
+		for id_un in ids_lidos:
+				
+			Chamado_ler_un = Chamado.objects.get(id=id_un)
+			Chamado_ler_un.foi_lido = foi_lido
+			Chamado_ler_un.save()
+			print('chamado {} lido foi marcado como {}'.format(id_un,foi_lido))
+
+
+		return(HttpResponse('success'))
+	if request.method == 'POST' and request.is_ajax == False:
+			chamado_id = request.POST.get('id_chamado')
+			cha = Chamado.objects.get(id=chamado_id)
+			cha.status = 'excluido'
+			messages.info(request,'Chamado {} excluido com sucesso'.format(chamado_id))
+			
+
+	else:
+		print('não é ajax')
+		return(HttpResponse,'haha')
+
+
+			
+		
+
+
+
+
+
+
 
 #   Listagem de chamados em suas categorias ------------------------------------------------------------
 
@@ -235,6 +276,25 @@ def chamados_abertos(request):
 
 
 @login_required
+def chamados_fechados(request):
+	context = {}
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+		novs_cham = obter_novos_chamados()
+		Usuario = request.user
+		chamados_ex = Chamado.objects.all().filter(status='fechado')
+		context = {}
+
+		context['chamados'] = chamados_ex
+		context['Novos_Chamados'] = novs_cham
+		context['Nome_Sistema'] = Nome_Sistema
+		context['filtro'] = 'fechados'
+
+		return render(request, "painel.html", context)
+
+	else:
+		messages.warning(request,'Você não tem acesso à essa página')
+		return render(request, "home.html", context)
+@login_required	
 def chamados_excluidos(request):
 	context = {}
 	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
@@ -257,10 +317,11 @@ def chamados_excluidos(request):
 
 
 
+
 @login_required
 def chamados_resolvidos(request):
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
 		chamados_re = Chamado.objects.all().filter(status='resolvido')
@@ -281,7 +342,7 @@ def chamados_resolvidos(request):
 @login_required
 def chamados_pendentes(request):
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
 		chamados_pe = Chamado.objects.all().filter(status='pendente')
@@ -305,9 +366,6 @@ def chamados_pendentes(request):
 def painel(request):   #MOSTRA O PAINEL PRINCIPAL E TODOS OS CHAMADOS
 	context = {}
 	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
-
-
-
 		chamados_si = obter_chamados()
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
@@ -341,17 +399,24 @@ def alterar_status(request):
 
 
 	if request.is_ajax() and request.method =='POST':
-
+		lista_num_cham = []
 		id_lido = request.POST.getlist('lista_ids[]')
 		status = request.POST.get('status')
 		for id_un in id_lido:
 		
 			Chamado_ler_un = Chamado.objects.get(id=id_un)
 			Chamado_ler_un.status = status
-			Chamado_ler_un.save()
-			print('chamado {} lido foi marcado como {}'.format(id_un,status))
 			
-		return(HttpResponse('success'))
+			Chamado_ler_un.save()
+			lista_num_cham.append(id_un)
+
+		sort(lista_num_cham)
+		
+			#print('chamado {} lido foi marcado como {}'.format(id_un,status))
+
+		messages.success(request,'chamados {} foi marcado como {}'.format(lista_num_cham,status))
+			
+		return HttpResponse('/painel/')
 				
 	
 
@@ -362,20 +427,38 @@ def alterar_status(request):
 
 
 
-
+@csrf_exempt
 @login_required
 def alterar_prioridade(request):
-	if request.method =='POST':
+	if request.method =='POST' and request.is_ajax() == False:
 		prioridade_nova = request.POST.get('selecionar_prioridade')
 		id_chamado = request.POST.get('id_chamado')
 		o_chamado = Chamado.objects.get(id=id_chamado)
 		o_chamado.prioridade = prioridade_nova
 		o_chamado.save()
-
-
-
-		messages.success(request,'Prioridade do chamado Nº {} defino como {} com sucesso!'.format(id_chamado,prioridade_nova.upper()))
+		messages.success(request,'Prioridade do chamado Nº {} definida como {} com sucesso!'.format(id_chamado,prioridade_nova.upper()))
 		return redirect('/chamado/{}'.format(id_chamado),request)
+
+
+	if request.is_ajax() and request.method =='POST':
+		lista_num_cham = []
+		id_lido = request.POST.getlist('lista_ids[]')
+		prioridade = request.POST.get('prioridade')
+		for id_un in id_lido:
+		
+			Chamado_ler_un = Chamado.objects.get(id=id_un)
+			Chamado_ler_un.prioridade = prioridade
+			
+			Chamado_ler_un.save()
+			lista_num_cham.append(id_un)
+
+		sort(lista_num_cham)
+		
+			#print('chamado {} lido foi marcado como {}'.format(id_un,prioridade))
+
+		messages.success(request,'chamados {} foi marcado como {}'.format(lista_num_cham,prioridade))
+			
+		return HttpResponse('success')
 
 
 

@@ -17,7 +17,7 @@
 
 
 
-<style> body{background-color: #7cccaa; outline-color: transparent;} .corpo_card{background-color: #7cccaa; outline-color: transparent;}</style>
+<style> body{background-color: #7cccaa; outline-color: transparent;} .corpo_card{background-color: #9AFFEE; outline-color: transparent;}</style>
 
 
 
@@ -37,8 +37,8 @@
         <span class='text-white' style='margin-left: 15px;'><a class ='container'
                   {% if chamado.status == "excluido"%} class=" text-white"  style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #EC5858;'{% endif %}
                                 {% if chamado.status == 'fechado'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #EC8F6A;'{% endif %}
-                                {% if chamado.status == 'aberto'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #AC66CC;'{% endif %}
-                                {% if chamado.status == 'pendente'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #1EAE98;'{% endif %}
+                                {% if chamado.status == 'aberto'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #1EAE98;'{% endif %}
+                                {% if chamado.status == 'pendente'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #AC66CC;'{% endif %}
                                 {% if chamado.status == 'resolvido'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #54E346;'{% endif %}>
                 {{chamado.status}} </a></span>
 
@@ -46,7 +46,7 @@
  
         <!-- alterar com o status do chamado --></a href='#'> </h5>
       </div>
-      <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em 02/06/2021 por: Nome Completo da Silva</p>
+      <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em {{chamado.hora_abertura}} por: {{chamado.autor}}</p>
       <strong>          <!-- colocar o nome variavel do setor -->
       <p style='font-weight: 570;' class='card-text text-dark'> PRIORIDADE:
         <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger {% endif %}
@@ -123,4 +123,5 @@ window.location.reload()
 
 </body>
 </html>
+</div>
 {% endblock %}

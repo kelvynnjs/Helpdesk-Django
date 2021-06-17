@@ -4,11 +4,12 @@
 			class="btn btn-dark btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
 				style='color:lightgreen;' class="fa fa-plus fa-lg"></i> </button></div>
 	<div class='d-flex flex-row-reverse'>
-		<div style="margin-right:5rem;" class='botao_aplicar p-2'>
-			<a onclick='status()' style='margin-top:2px;' class='btn btn-light btn-sm border-secondary'>Aplicar</a>
-		</div>
-		<div class='alter p-2'>
-			<form id='alterar-prioridade'>
+		<div class='alter p-2 status' style='margin-right: 5px;'>
+				<a id='confirmar_deletar' data-toggle="modal" data-target="#deletar" style='margin-right: 30px; margin-top: 2px;' href='#' onclick="selecionar()" class= 'btn btn-sm btn-danger'><i class='fa fa-trash fa-lg'></i></a>
+			</div>
+		
+		<div class='alter p-2 prioridade' style='margin-right: 10px;'>
+	
 				<select id="selecionar_prioridade" name='selecionar_prioridade' class="form-control"
 					data-role="select-dropdown">
 					<option value=null selected>Alterar Prioridade</a></option>
@@ -17,26 +18,163 @@
 					<option value='alta'>Alta </option>
 				</select>
 		</div>
-		<div class='alter p-2' style='margin-right: 30px;'>
-			<form id='alterar-status' class='form w-50'>
+		<div class='alter p-2 status' style='margin-right: 5px;'>
+			
 				<select id="selecionar_status" name='selecionar_status' class="form-control"
 					data-role="select-dropdown">
 				<option value='None' selected>Alterar status</a></option>
-				<option  value ='resolvido'>Resolvido</a></option>
-				<option  value ='aberto'>Aberto</option>
+				<option value ='resolvido'>Resolvido</a></option>
+				<option value ='aberto'>Aberto</option>
 				<option value ='pendente'>Pendente </option>
 				<option value ='fechado'>Fechado</option>
 				</select>
 		</div>
-		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-secondary btn-sm'
-				href=# onclick="ler('True');" id='marcar_ler'>Marcar como lido </a></div>
 
-		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-secondary btn-sm'
+
+
+
+		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-primary btn-sm'
+				href=# onclick="ler('True');" id='marcar_ler'>Marcar como lido </a></div>
+		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-primary btn-sm'
 				href=# onclick="ler('False');" id='marcar_ler'>Marcar como não lido </a></div>
 	</div>
 </div>
 
+
+
+<!-- Confirmar exclusão de chamado -->
+
+<!-- Modal -->
+<div class="modal fade" id="deletar" tabindex="-1" role="dialog" aria-labelledby="label_deletar" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="label_deletar">Atenção</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div  class="modal-body" id='text_mom'> Você tem certeza que deseja excluir os chamados:
+      	<div class="modal-body" id='text_deletar'>
+       
+        <script>
+
+        	function selecionar() {
+
+		var lista_selec = [];
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+		
+		for (var i = 0; i < checkboxes.length; i++) {
+			var chamado_id = checkboxes[i].value;
+			var adicionar = lista_selec.push(chamado_id)}
+
+
+
+
+		/*Mostrar os valores selecionados*/
+		document.getElementById("text_deletar").innerHTML = lista_selec
+	}
+	
+
+
+	</script>
+
+
+      </div>
+</div>
+      <div class="modal-footer">
+        <button action='excluir' type="button" class="btn btn-danger">Continuar com a exclusão dos itens</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script> 
+
+
+
+
+</script>
+
+
+	<!-- Alterar prioridade -->
+	
+
 <script>
+
+function 
+
+
+
+
+document.getElementById("selecionar_prioridade").onchange = function(){
+     
+
+      alterar_prioridade(this.value);
+
+
+
+    }
+
+
+function alterar_prioridade(valor) {
+		if (valor !== null ) {
+		var lista_prioridade = [];
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+		
+
+
+		for (var i = 0; i < checkboxes.length; i++) {
+			var chamado_id = checkboxes[i].value;
+			var adicionar = lista_prioridade.push(chamado_id);
+
+
+		}
+		/*console.log(lista_prioridade + ' ' + 'prioridade')*/
+
+
+
+		$.ajax({
+			method: "POST",
+			url: "/alterar_prioridade/",
+			data: {
+				lista_ids: lista_prioridade,
+				prioridade: valor
+			}
+		})
+		window.location.reload()
+	}}
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+<!-- FUNÇÃO SELECIONAR E ALTERAR STATUS JAVASCRIPT -->
+<script>
+
+document.getElementById("selecionar_status").onchange = function(){
+     
+
+      alterar_status(this.value);
+
+
+
+    }
+
+
+
+
 	function alterar_status(valor) {
 		if (valor !== null ) {
 		var lista_status = [];
@@ -50,7 +188,7 @@
 
 
 		}
-		console.log(lista_status + ' ' + 'Status')
+		/*console.log(lista_status + ' ' + 'Status')*/
 
 
 
@@ -58,7 +196,7 @@
 			method: "POST",
 			url: "/alterar_status/",
 			data: {
-				id_chamado: lista_status,
+				lista_ids: lista_status,
 				status: valor
 			}
 		})
@@ -69,8 +207,9 @@
 
 
 
-
+<!-- FUNÇÃO JAVASCRIPT LER -->
 <script>
+
 	function ler(valor) {
 		var lista_marcados = [];
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
@@ -188,7 +327,7 @@
 						<td style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
 						<td style=' text-transform: capitalize; font-weight: 550; text-align: left'>{{ chamado.autor }}
 						</td>
-						<td style=' text-align: left;'><a href='http://localhost:8000/chamado/{{chamado.id}}'
+						<td style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
 								style='font-weight: 600; padding:8px'>{{ chamado.titulo|lower|capfirst }}</a>
 							{% if chamado.foi_lido == False %} <small><span style='font-weight: 600'
 									class="badge badge-success">Novo</span></small>

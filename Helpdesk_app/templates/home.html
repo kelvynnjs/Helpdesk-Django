@@ -13,6 +13,58 @@
 {% endblock %}
 
 
-{% block content %} {% include "UI/notificacoes.html"%}  {% endblock %}
+{% block content %} {% include "UI/notificacoes.html"%} 
+
+
+<style> body{
+
+background-color: lightcyan; }
+
+a:link {
+  color: #23272B;
+    decoration: none; 
+}
+
+a:visited {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+
+}
+
+a:hover {
+  color: #23272B;
+text-decoration: black; 
+    decoration: none; 
+}
+
+a:active {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+}
+</style>
+
+
+
+{% include "acoes_chamado.html" %}
+
+
+<div class="row">
+	<div class='botao col-sm' style='margin-left:10px;margin-bottom: 10px;'><button type="button"
+			class="btn btn-dark btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
+				style='color:lightgreen;' class="fa fa-plus fa-lg"></i> </button></div>
+	<div class='d-flex flex-row-reverse'>
+		<div class='alter p-2 status' style='margin-right: 5px;'>
+			</div>
+
+
+  {% %}
+
+
+
+
+
+ {% endblock %}
 
 
