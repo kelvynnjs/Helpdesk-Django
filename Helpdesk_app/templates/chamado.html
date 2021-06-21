@@ -49,11 +49,11 @@
       <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em {{chamado.hora_abertura}} por: {{chamado.autor}}</p>
       <strong>          <!-- colocar o nome variavel do setor -->
       <p style='font-weight: 570;' class='card-text text-dark'> PRIORIDADE:
-        <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger {% endif %}
+        <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger" {% endif %}
         {% if chamado.prioridade == 'media'%}
-        class="badge text-white badge-warning {% endif %}
+        class="badge text-white badge-warning" {% endif %}
         {% if chamado.prioridade == 'baixa'%}
-        class="badge badge-primary text-light{% endif %}">{{chamado.prioridade|upper}}</a>
+        class="badge badge-primary text-light"{% endif %}>{{chamado.prioridade|upper}}</a>
         <!-- colocar o nome da prioridade e a cor -->
       </p>
       </strong>
@@ -92,9 +92,6 @@
 
 
 <!-- Quando a página carrega, o chamado é listado como "lido", então não mais aparece nas notificações  -->
-<form id="chamado_lido" action="/chamado_lido/" method="POST">
-  <input id="donaldduck" type="hidden" name="chamado_lido" value="chamado_lido">
-</form>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -104,8 +101,7 @@
       lista_marcados[0] = {{chamado.id}}
        
       $.ajax({
-      }
-      }
+
  method: "POST",
  url: "/ler_chamado/",
  data: { id_chamado: lista_marcados,
@@ -113,7 +109,7 @@
 })
 
 
-window.location.reload()
+
 
     });
 

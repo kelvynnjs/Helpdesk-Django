@@ -73,7 +73,7 @@
 
 		/*Mostrar os valores selecionados*/
 		document.getElementById("text_deletar").innerHTML = lista_selec
-	}
+	};
 	
 
 
@@ -83,7 +83,7 @@
       </div>
 </div>
       <div class="modal-footer">
-        <button action='excluir' type="button" class="btn btn-danger">Continuar com a exclusão dos itens</button>
+        <a onclick="excluir()" href='#' class="btn btn-danger">Continuar com a exclusão dos itens</a>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
@@ -92,8 +92,34 @@
 
 
 
-<script> 
 
+
+
+<!-- FUNÇÃO JAVASCRIPT EXCLUIR -->
+<script>
+
+	function excluir() {
+		var lista_marcados_excluir = [];
+		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+		for (var i = 0; i < checkboxes.length; i++) {
+			var chamado_id = checkboxes[i].value;
+			var adicionar = lista_marcados_excluir.push(chamado_id);
+
+
+
+		console.log(lista_marcados_excluir)
+		$.ajax({
+			method: "POST",
+			url: "/excluir_chamados/",
+			data: {
+				id_chamado: lista_marcados_excluir
+			}
+		})
+		window.location.reload()
+	}
+			}
+</script>
 
 
 
@@ -105,7 +131,7 @@
 
 <script>
 
-function 
+
 
 
 
@@ -117,7 +143,7 @@ document.getElementById("selecionar_prioridade").onchange = function(){
 
 
 
-    }
+    };
 
 
 function alterar_prioridade(valor) {
@@ -246,9 +272,9 @@ document.getElementById("selecionar_status").onchange = function(){
 					{% endif %}href="{% url 'painel'%}">Todos</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'painel/excluidos' %} active {% endif %} "
-					{% if request.path == 'painel/excluidos' %} href="#" {% else %}
-					href="{% url 'chamados_excluidos' %}" {% endif %}>Excluídos</a>
+				<a class="nav-link {% if request.path == 'painel/fechados' %} active {% endif %} "
+					{% if request.path == 'painel/fechados' %} href="#" {% else %}
+					href="{% url 'chamados_fechados' %}" {% endif %}>Fechados</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link {% if request.path == 'painel/resolvidos' %} active {% endif %} "

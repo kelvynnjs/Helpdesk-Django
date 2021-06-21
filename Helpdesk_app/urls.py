@@ -14,9 +14,9 @@ path('painel/abertos', views.chamados_abertos, name='chamados_abertos'), #chamad
 path('painel/fechados', views.chamados_fechados, name='chamados_fechados'),#chamados fechados
 path('painel/resolvidos', views.chamados_resolvidos, name='chamados_resolvidos'), #chamados resolvidos
 path('painel/pendentes', views.chamados_pendentes, name='chamados_pendentes'), #chamados pendentes
-path('painel/excluidos', views.chamados_excluidos, name='chamados_excluidos'), #chamados excluidos
 path('alterar_status/', views.alterar_status, name='alterar_status'), 
 path('alterar_prioridade/', views.alterar_prioridade, name='alterar_prioridade'), 
+path('excluir_chamados/', views.excluir_chamados, name='excluir_chamados'), 
 
 path('ler_chamado/', views.ler_chamado, name='ler_chamado'), 
 

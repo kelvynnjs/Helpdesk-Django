@@ -222,16 +222,15 @@ def excluir_chamados(request): #Exclue os chamados selecionados
 		for id_un in ids_lidos:
 				
 			Chamado_ler_un = Chamado.objects.get(id=id_un)
-			Chamado_ler_un.foi_lido = foi_lido
-			Chamado_ler_un.save()
-			print('chamado {} lido foi marcado como {}'.format(id_un,foi_lido))
+
+			Chamado_ler_un.delete()
+			messages.info(request,f'Os chamados {ids_lidos} foram excluidos com sucesso')
 
 
 		return(HttpResponse('success'))
 	if request.method == 'POST' and request.is_ajax == False:
 			chamado_id = request.POST.get('id_chamado')
-			cha = Chamado.objects.get(id=chamado_id)
-			cha.status = 'excluido'
+			Chamado.objects.get(id=chamado_id).delete()
 			messages.info(request,'Chamado {} excluido com sucesso'.format(chamado_id))
 			
 
