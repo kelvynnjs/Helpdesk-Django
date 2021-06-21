@@ -36,7 +36,7 @@ class Chamado(models.Model):
 
 
 
-    autor = models.CharField(max_length=50)
+    autor = models.ForeignKey('Usuario',on_delete=models.CASCADE)
     prioridade = models.CharField(max_length=30, choices=OPCOES_PRIORIDADE)
     agente_atribuido = models.CharField(max_length=100, default = None, null=True) # Não será usado foreign Key, #pois caso um usuário seja deletado, o nome continuará no banco de dados 
     status = models.CharField(max_length=30, choices=OPCOES_STATUS) #Status do chamado ex: ABERTO, CONCLUÍDO...
@@ -44,7 +44,7 @@ class Chamado(models.Model):
     topico = models.CharField(max_length=50) #Tópico (ex: Dificuldade de acesso; Solicitar Instalação; Problemas com o computador)
     descricao = models.TextField()
     local_afetado = models.CharField(max_length=50, default=None) #Local onde a pessoa se encontra
-    hora_abertura = models.DateTimeField(auto_now_add=True)
+    hora_abertura = models.DateTimeField(auto_now_add=True) #Hora de criação do chamado
     foi_lido = models.BooleanField(default=False) #Define se o chamado já foi lido por um atendente
   
     

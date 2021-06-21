@@ -182,16 +182,16 @@ def novo_chamado(request):
 
 	if request.method == 'POST':
 
-		usuario = request.user.nome_completo #Obtem o usuário do termo user dentro da request
+		usuario = request.user #.nome_completo #Obtem o usuário do termo user dentro da request
 		titulo_chamado = request.POST.get('titulo_chamado')
 		texto_chamado = request.POST.get('texto_chamado')
 		prioridade_chamado = request.POST.get('nivel_prioridade')
 		topico_chamado = request.POST.get('topico_chamado')
 		local_chamado = request.POST.get('local_chamado')
 
-		print(titulo_chamado)
+	
 
-		nov_cham = Chamado.objects.create(autor = usuario, titulo = titulo_chamado, prioridade = prioridade_chamado, status = 'aberto', descricao = texto_chamado, local_afetado = local_chamado)
+		nov_cham = Chamado.objects.create(autor = usuario, titulo = titulo_chamado, prioridade = prioridade_chamado, status = 'aberto', descricao = texto_chamado, local_afetado = local_chamado, topico = topico_chamado)
 		nov_cham.save()
 		messages.success(request,'Chamado aberto com successo')
 

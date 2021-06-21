@@ -62,8 +62,9 @@
         	function selecionar() {
 
 		var lista_selec = [];
+
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-		
+		if (checkboxes.length > 0 ) {
 		for (var i = 0; i < checkboxes.length; i++) {
 			var chamado_id = checkboxes[i].value;
 			var adicionar = lista_selec.push(chamado_id)}
@@ -73,7 +74,7 @@
 
 		/*Mostrar os valores selecionados*/
 		document.getElementById("text_deletar").innerHTML = lista_selec
-	};
+	}};
 	
 
 
@@ -102,6 +103,7 @@
 		var lista_marcados_excluir = [];
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
 
+		if (checkboxes.length > 0 ) {
 		for (var i = 0; i < checkboxes.length; i++) {
 			var chamado_id = checkboxes[i].value;
 			var adicionar = lista_marcados_excluir.push(chamado_id);
@@ -119,6 +121,7 @@
 		window.location.reload()
 	}
 			}
+		}
 </script>
 
 
@@ -130,11 +133,6 @@
 	
 
 <script>
-
-
-
-
-
 
 document.getElementById("selecionar_prioridade").onchange = function(){
      
@@ -152,7 +150,7 @@ function alterar_prioridade(valor) {
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
 		
 
-
+		if (checkboxes.length > 0 ) {
 		for (var i = 0; i < checkboxes.length; i++) {
 			var chamado_id = checkboxes[i].value;
 			var adicionar = lista_prioridade.push(chamado_id);
@@ -174,7 +172,7 @@ function alterar_prioridade(valor) {
 		window.location.reload()
 	}}
 
-
+}
 
 
 
@@ -207,7 +205,7 @@ document.getElementById("selecionar_status").onchange = function(){
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
 		
 
-
+		if (checkboxes.length > 0 ) {
 		for (var i = 0; i < checkboxes.length; i++) {
 			var chamado_id = checkboxes[i].value;
 			var adicionar = lista_status.push(chamado_id);
@@ -228,6 +226,7 @@ document.getElementById("selecionar_status").onchange = function(){
 		})
 		window.location.reload()
 	}}
+}
 </script>
 
 
@@ -239,7 +238,7 @@ document.getElementById("selecionar_status").onchange = function(){
 	function ler(valor) {
 		var lista_marcados = [];
 		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-
+		if (checkboxes.length > 0 ) {
 		for (var i = 0; i < checkboxes.length; i++) {
 			var chamado_id = checkboxes[i].value;
 			var adicionar = lista_marcados.push(chamado_id);
@@ -256,7 +255,7 @@ document.getElementById("selecionar_status").onchange = function(){
 			}
 		})
 		window.location.reload()
-	}
+	}}
 </script>
 <div class="card text-center bg-white">
 	<div class="card-header">
@@ -271,11 +270,7 @@ document.getElementById("selecionar_status").onchange = function(){
 					{% if request.path == 'painel/' %} href="#" {% else %} href='/painel'
 					{% endif %}href="{% url 'painel'%}">Todos</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link {% if request.path == 'painel/fechados' %} active {% endif %} "
-					{% if request.path == 'painel/fechados' %} href="#" {% else %}
-					href="{% url 'chamados_fechados' %}" {% endif %}>Fechados</a>
-			</li>
+			
 			<li class="nav-item">
 				<a class="nav-link {% if request.path == 'painel/resolvidos' %} active {% endif %} "
 					{% if request.path == 'painel/resolvidos' %} href="#" {% else %}
@@ -286,11 +281,19 @@ document.getElementById("selecionar_status").onchange = function(){
 					{% if request.path == 'painel/pendentes' %} href="#" {% else %}
 					href="{% url 'chamados_pendentes' %}" {% endif %}>Pendentes</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if request.path == 'painel/fechados' %} active {% endif %} "
+					{% if request.path == 'painel/fechados' %} href="#" {% else %}
+					href="{% url 'chamados_fechados' %}" {% endif %}>Fechados</a>
+			</li>
 		</ul>
 	</div>
 	<div style='padding-bottom: 0rem;' class="card-body">
+
+
 		{% if chamados %}
 		<!-- VERIFICA SE EXISTEM CHAMADOS -->
+
 		<!-- teste -->
 		<div class='vis_chamados'>
 			<script>
@@ -351,7 +354,7 @@ document.getElementById("selecionar_status").onchange = function(){
 							</center>
 						</td>
 						<td style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
-						<td style=' text-transform: capitalize; font-weight: 550; text-align: left'>{{ chamado.autor }}
+						<td style=' text-transform: capitalize; font-weight: 550; text-align: left'>{{ chamado.autor.nome_completo }}
 						</td>
 						<td style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
 								style='font-weight: 600; padding:8px'>{{ chamado.titulo|lower|capfirst }}</a>

@@ -46,19 +46,21 @@
  
         <!-- alterar com o status do chamado --></a href='#'> </h5>
       </div>
-      <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em {{chamado.hora_abertura}} por: {{chamado.autor}}</p>
-      <strong>          <!-- colocar o nome variavel do setor -->
+      <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em {{chamado.hora_abertura}} por: {{chamado.autor.nome_completo|capfirst}}</p>
+      <strong>    
+      <p class='card-text text-dark' style='font-weight: 580; display: inline;'>Tópico:  <p class ='text-dark'style='display: inline; font-weight: 580'><strong>{{chamado.topico|lower|capfirst}}</strong></p></p></p> 
       <p style='font-weight: 570;' class='card-text text-dark'> PRIORIDADE:
         <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger" {% endif %}
         {% if chamado.prioridade == 'media'%}
         class="badge text-white badge-warning" {% endif %}
         {% if chamado.prioridade == 'baixa'%}
-        class="badge badge-primary text-light"{% endif %}>{{chamado.prioridade|upper}}</a>
+        class="badge badge-primary text-light"{% endif %}>{{chamado.prioridade|upper}}</a> 
         <!-- colocar o nome da prioridade e a cor -->
       </p>
       </strong>
       
-      <small><p class='card-text text-dark' style='font-weight: 580; display: inline;'>Local/Setor/Seção: <p class ='text-dark'style='display: inline; font-weight: 580'><strong>{{chamado.local_afetado|lower|capfirst}}</strong></p></p></p></small>
+      <small><p class='card-text text-dark' style='font-weight: 580; display: inline;'>Local/Setor/Seção: <p class ='text-dark'style='display: inline; font-weight: 580; font-size: 15px'><strong>{{chamado.local_afetado|upper}}</strong></p></p></p></small>
+
     </div>
     
     <div class="card-header bg-white text-dark" style='max-width: 85rem; max-height: 15rem;font-weight: 570;'>Descrição
@@ -95,8 +97,13 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+      console.log('{{chamado.foi_lido}}')
 
-      var lista_marcados = []
+     /*EXECUTA O METODO POST SOMENTE SE O CHAMADO NÃO FOI LIDO AINDA*/
+      if ( '{{chamado.foi_lido}}' == 'False')
+       {
+
+ var lista_marcados = []
 
       lista_marcados[0] = {{chamado.id}}
        
@@ -107,6 +114,10 @@
  data: { id_chamado: lista_marcados,
          foi_lido: "True"}
 })
+
+      }
+
+     
 
 
 
