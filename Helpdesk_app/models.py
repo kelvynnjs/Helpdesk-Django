@@ -10,7 +10,7 @@ from django.contrib.auth.models import AbstractUser
 
 #Foi utilizada a primeira letra maiúscula para as classes importadas (ex: Usuário, Chamados ...)
 
-# Tabela de Chamados.
+
 
 #Campos que não são explicitamente citados como "Null = True" são "NOT Null", ou seja, exigem algum valor necessariamente
 #pelo sistema
@@ -18,8 +18,13 @@ from django.contrib.auth.models import AbstractUser
 #De maneira oculta, todos as tabelas no banco de dados incluem um campo "ID" unico por padrão, não sendo assim
 #necessária a declaração dentro do escopo de 'models'
 
-class Chamado(models.Model):
+#Algumas foreign keys são utilizadas
 
+
+
+
+
+class Chamado(models.Model):
     OPCOES_PRIORIDADE = [
 
      ('alta', 'Alta'),
@@ -58,7 +63,7 @@ class Chamado(models.Model):
     #Tópico (ex: Dificuldade de acesso; Solicitar Instalação; Problemas com o computador)
 
 
-#------------------------------------SOFRIMENTO--------------------------------------#
+#------------------------------------usuario--------------------------------------#
 class Usuario(AbstractUser):
     nome_completo = models.CharField(max_length=120) # nome completo do usuário
     data_criacao = models.DateTimeField(auto_now_add=True) #data de criação do usuário
@@ -69,6 +74,18 @@ class Usuario(AbstractUser):
         return self.username
 
 
-#-----------------------------------FIM_SOFRIMENTO------------------------------------#
+#-----------------------------------FIM_usuario------------------------------------#
 
 
+class Mensagem(models.Model): 
+    autor_mensagem = models.ForeignKey('Usuario', related_name='autor_mensagem', on_delete=models.CASCADE) # quem escreve a mensagem
+    hora_mensagem = models.DateTimeField(auto_now_add=True) # HORA QUE A MENSAGEM FOI ENVIADA 
+    texto = models.TextField() #texto da mensagem
+    receptor_mensagem = models.ForeignKey('Usuario',related_name='receptor_mensagem',on_delete=models.CASCADE) # quem recebe a mensagem
+
+
+#Anexo
+class Anexo(models.Model):
+    titulo = models.CharField(max_length=50)
+    local = models.CharField(max_length=150)
+    arquivo = models.FileField()
