@@ -82,10 +82,10 @@ class Mensagem(models.Model):
     hora_mensagem = models.DateTimeField(auto_now_add=True) # HORA QUE A MENSAGEM FOI ENVIADA 
     texto = models.TextField() #texto da mensagem
     receptor_mensagem = models.ForeignKey('Usuario',related_name='receptor_mensagem',on_delete=models.CASCADE) # quem recebe a mensagem
+    anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, default=None) 
 
 
-#Anexo
+#Anexo (representa a classe das imagens anexadas no sistema)
 class Anexo(models.Model):
     titulo = models.CharField(max_length=50)
-    local = models.CharField(max_length=150)
-    arquivo = models.FileField()
+    arquivo = models.FileField(upload_to='anexos/')

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CadastrarUsuario
-from .models import Chamado, Usuario
+from .models import Chamado, Usuario, Anexo, Mensagem
 import datetime
 
 
@@ -488,3 +488,35 @@ def remover_usuario(nome_user):
 	pass
 
 
+
+
+
+# SEÇÃO DE ANEXOS
+
+@csrf_exempt
+@login_required
+def upload_anexo(request):
+
+	if request.method == 'POST':
+		arquivos = request.FILES['input_arquivo']
+
+		nome_anexo = arquivos.name
+		novo_anexo = Anexo.objects.create(titulo=nome_anexo,arquivo = arquivos)
+		novo_anexo.save()
+
+		messages.success(request,'Anexo {} foi incluido com sucesso'.format(nome_anexo))
+			
+		return HttpResponse('success')
+
+
+
+""" def ver_anexo(request, titulo, id):
+	context = {}
+
+
+	if request.method == 'GET':
+		anexo = anexo.objects.get(id=id_anexo)
+		context['anexo'] =  anexo
+		render(request,'')
+
+ """

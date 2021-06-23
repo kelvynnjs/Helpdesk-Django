@@ -1,12 +1,14 @@
 <!-- CONTAINER DE FORMULÁRIO DE upload - Kelvynn José da Silva-->
-<form type = 'post' enctype = "multipart/form-data" action=''>
+<form type = 'post' enctype = "multipart/form-data" method='POST' action='/upload_anexo/'>
 <div class="input-group">
   <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile04">
+    <input type="file" class="custom-file-input" name='input_arquivo' id="input_arquivo">
     <label class="custom-file-label" for="inputGroupFile04">Escolher um Arquivo</label>
   </div>
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button">Enviar</button>
+    <button class="btn btn-outline-secondary" type="submit">Enviar</button>
   </div>
     </div>
   </form>
+
+

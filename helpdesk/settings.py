@@ -143,7 +143,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,  'static'),
 ]
-AUTH_USER_MODEL = 'Helpdesk_app.Usuario' 
+
+# Diretório onde ficam os anexos, ou imagens
+MEDIA_URL = '/anexos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+AUTH_USER_MODEL = 'Helpdesk_app.Usuario'
+
+
+
 
 
 # Default primary key field type
