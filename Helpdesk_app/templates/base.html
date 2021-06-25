@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+
+
 {% load static %}
+
+
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
@@ -18,10 +22,7 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/toastr.min.js' %}"></script>
-    <!-- DATATABLES -->
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'DataTables/datatables.bootstrap4.css' %}"/>
     
-    <script type="text/javascript" src="{% static 'DataTables/datatables.bootstrap.js' %}"></script> -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css"/>
     
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.js"></script>
@@ -31,10 +32,14 @@
     <script type="text/javascript" src="{% static 'DataTables/datetime-moment.js' %}"></script>
     <link rel='stylesheet' href='https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css'>
     <script type='text/javascript'src='https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js'> </script>
+
+
     {% block head %} {% endblock %}
   </head>
   <body>
     {% block body %} {% endblock %}
     {% block content %}{% endblock %}
+
+
   </body>
 </html>

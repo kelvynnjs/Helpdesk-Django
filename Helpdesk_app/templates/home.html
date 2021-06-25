@@ -46,20 +46,28 @@ a:active {
 </style>
 
 
+{% if request.user.is_authenticated == True %}
+
 
 {% include "acoes_chamado.html" %}
 
 
-<div class="row">
-	<div class='botao col-sm' style='margin-left:10px;margin-bottom: 10px;'><button type="button"
-			class="btn btn-dark btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
-				style='color:lightgreen;' class="fa fa-plus fa-lg"></i> </button></div>
-	<div class='d-flex flex-row-reverse'>
-		<div class='alter p-2 status' style='margin-right: 5px;'>
-			</div>
+<div>
+  <div class='botao col-sm' style='margin-left:10px;margin-bottom: 10px;'><button type="button"
+      class="btn btn-light btn-sm" style='background-color:#3BFF52;color:white;font-weight: 590;' data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
+        style='color:white;' class="fa fa-plus fa-lg"></i> </button></div>
 
 
 
+
+
+{% include "chamados_usuario.html" %}
+
+
+
+
+
+{% endif %}
 
 
 

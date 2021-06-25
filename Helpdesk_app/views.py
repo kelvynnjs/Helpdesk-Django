@@ -25,7 +25,7 @@ Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
 Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
 
 
-#Cria a pagina inicial
+#Cria a pagina inicial do usuario "PAINEL DO USUARIO"
 def home(request):
 	context = {}
 	context['Nome_Sistema'] = Nome_Sistema
@@ -33,10 +33,19 @@ def home(request):
 		if request.user.is_atendente == True:
 			return HttpResponseRedirect("/painel/")
 		else:
-			return render(request, "home.html", context)
+			
+			usuario = request.user
+			#usuario = request.user
+			chamados_usuario = Chamado.objects.all().filter(autor_id = usuario.id)
+			context['chamados_usuario'] = chamados_usuario
+
+
+			return render(request,"home.html",context)
+
+			
 	else:
 		
-		return render(request,"home.html", context)
+		return render(request,"home.html",context)
 
 
 
@@ -196,7 +205,13 @@ def novo_chamado(request):
 		messages.success(request,'Chamado aberto com successo')
 
 		context['Nome_Sistema'] = Nome_Sistema
-		return render(request, "painel.html", context)
+
+		if usuario.is_atendente == True:
+			return render(request, "painel.html", context)
+				
+
+		else:
+			return render(request, "home.html", context)
 	else:
 		messages.info(request,'Utilize o painel para abrir um novo chamado')
 		return HttpResponseRedirect(request,'home')
@@ -215,7 +230,7 @@ def obter_novos_chamados(): #Obtem a query com todos os chamados que não foram 
 @login_required
 @csrf_exempt
 def excluir_chamados(request): #Exclue os chamados selecionados
-	if request.is_ajax and request.method == 'POST':
+	if request.is_ajax == True and request.method == 'POST':
 	
 		ids_lidos = request.POST.getlist('id_chamado[]')
 
@@ -235,8 +250,14 @@ def excluir_chamados(request): #Exclue os chamados selecionados
 			
 
 	else:
-		print('não é ajax')
-		return(HttpResponse,'haha')
+		id_un = request.POST.getlist('id_chamado')[0]
+		chamado_excluir = Chamado.objects.get(id=id_un)
+		chamado_excluir.delete()
+		messages.info(request,f'O chamado {str(id_un)} foi excluído com sucesso')
+		if request.user.is_atendente == True:
+			return redirect('painel')
+		else:
+			return redirect('home')
 
 
 			

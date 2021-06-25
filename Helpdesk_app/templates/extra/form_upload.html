@@ -3,12 +3,33 @@
 <div class="input-group">
   <div class="custom-file">
     <input type="file" class="custom-file-input" name='input_arquivo' id="input_arquivo">
-    <label class="custom-file-label" for="inputGroupFile04">Escolher um Arquivo</label>
+    <label id='escolher_arquivo'class="custom-file-label" for="inputGroupFile04">Escolher um Arquivo</label>
   </div>
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="submit">Enviar</button>
+    <button class="btn btn-outline-info" type="submit">Enviar</button>
   </div>
     </div>
   </form>
+<style>.custom-file-label::after {
+content: "Buscar" !important; }
+</style>
 
 
+
+
+
+<!-- ISSO PERMITE A VISUALIZAÇÃO DO ARQUIVO SELECIONADO NO FORMULÁRIO DE UPLOAD DE ANEXO -->
+<script>
+
+document.getElementById('input_arquivo').onchange = function () {
+
+ document.getElementById('escolher_arquivo').innerHTML = ('<strong><small style="color:red">' + this.value.replace(/.*[\/\\]/, ''));
+
+
+
+document.getElementById('escolher_arquivo').innerHTML += "</small> </strong>"
+
+
+};
+
+</script>

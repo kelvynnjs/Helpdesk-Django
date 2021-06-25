@@ -51,6 +51,7 @@ class Chamado(models.Model):
     local_afetado = models.CharField(max_length=50, default=None) #Local onde a pessoa se encontra
     hora_abertura = models.DateTimeField(auto_now_add=True) #Hora de criação do chamado
     foi_lido = models.BooleanField(default=False) #Define se o chamado já foi lido por um atendente
+    anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, default=None, null=True) 
   
     
 
@@ -82,10 +83,10 @@ class Mensagem(models.Model):
     hora_mensagem = models.DateTimeField(auto_now_add=True) # HORA QUE A MENSAGEM FOI ENVIADA 
     texto = models.TextField() #texto da mensagem
     receptor_mensagem = models.ForeignKey('Usuario',related_name='receptor_mensagem',on_delete=models.CASCADE) # quem recebe a mensagem
-    anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, default=None) 
+    anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, default=None, null=True) 
 
 
 #Anexo (representa a classe das imagens anexadas no sistema)
 class Anexo(models.Model):
     titulo = models.CharField(max_length=50)
-    arquivo = models.FileField(upload_to='anexos/')
+    arquivo = models.FileField(upload_to = '')

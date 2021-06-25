@@ -1,13 +1,22 @@
-<!-- Kelvynn José da Silva -->
-<!-- Trata-se do modelo base da página individual do chamado-->
+<!-- KELVYNN JOSÉ DA SILVA -->
+<!-- TRATA-SE DO MODELO BASE DA PÁGINA INDIVIDUAL DO CHAMADO-->
 {% extends 'base.html' %}
+
+{% if request.user.is_authenticated %}
 
 {% block title %} Chamado Nº {{chamado.id}} {% endblock  %}
 
-{% block body %} {% include "navbar_painel.html" %}
+{% block body %}
+{% if  request.user.is_atendente %}
 
+    {% include "navbar_painel.html" %}
+{% else %}
+   {% include "navbar.html" %}
+{% endif %}
 <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 {% endblock %}
+
+
 {% block content %} {% include "UI/notificacoes.html"%}
 
 
@@ -42,13 +51,20 @@
                                 {% if chamado.status == 'resolvido'%} class=" text-white" style='text-transform:uppercase;font-weight: 570;text-align: center;background-color: #54E346;'{% endif %}>
                 {{chamado.status}} </a></span>
 
- <span class='flex-d float-right'><button type="button" class="btn btn-light btn-md" data-toggle="modal" data-target="#mymodal"><span><i class="fa fa-bars" aria-hidden="true"></i></span></button></span>
+ <span class='flex-d float-right'>
+<button type="button" class="btn btn-light btn-md" data-toggle="modal" data-target="#upload_anexo"><span><i class="fa fa-upload" data-placement="right" title="Fazer Upload de Anexo" aria-hidden="true"></i></span></button>
+
+
+  <button type="button" class="btn btn-light btn-md" data-toggle="modal" data-target="#mymodal"><i class="fa fa-bars" aria-hidden="true"></i></span></button></span>
  
-        <!-- alterar com o status do chamado --></a href='#'> </h5>
+        <!-- ALTERAR COM O STATUS DO CHAMADO --></a href='#'> </h5>
       </div>
       <div class='card-header bg-light text-dark'><p class=' text-muted text-dark'>Criado em {{chamado.hora_abertura}} por: {{chamado.autor.nome_completo|capfirst}}</p>
       <strong>    
       <p class='card-text text-dark' style='font-weight: 580; display: inline;'>Tópico:  <p class ='text-dark'style='display: inline; font-weight: 580'><strong>{{chamado.topico|lower|capfirst}}</strong></p></p></p> 
+      
+      {% if request.user.is_atendente %} <!-- SOMENTE ATENDENTE-->
+      
       <p style='font-weight: 570;' class='card-text text-dark'> PRIORIDADE:
         <a style='font-weight: 580' {% if chamado.prioridade == "alta"%} class="badge text-white badge-danger" {% endif %}
         {% if chamado.prioridade == 'media'%}
@@ -58,6 +74,7 @@
         <!-- colocar o nome da prioridade e a cor -->
       </p>
       </strong>
+      {% endif %}
       
       <small><p class='card-text text-dark' style='font-weight: 580; display: inline;'>Local/Setor/Seção: <p class ='text-dark'style='display: inline; font-weight: 580; font-size: 15px'><strong>{{chamado.local_afetado|upper}}</strong></p></p></p></small>
 
@@ -74,26 +91,28 @@
     <div class="card-header bg-white text-dark">
       Anexos
     </div>
-    {% if chamado.anexos is not None and chamado.anexos > 0 %}
+    {% if chamado.anexo is not None and chamado.anexo > 0 %}
       <!-- Verifica se existem anexos no chamado atual -->
       <div class='card-body' style='max-width: 85rem;background-color: #e6f0f2;'>
         <ul class="list-group list-group-flush">
         {% endif %}
-        {% for anexo in chamado.anexos %}
+        {% for anexo_item in chamado.anexo %}
           <!-- SE HOUVEREM ANEXOS, FAZER FOR LOOP E APRESENTA-LOS AQUI  -->
-          <li class="list-group-item" style=";"><a onclick="window.open('{{anexo.link}}')"
-          class='btn btn-sm btn-danger'>{{anexo.nome}}</a></li>
+          <li class="list-group-item" style=";"><a onclick="window.open('{{anexo_item.arquivo}}')"
+          class='btn btn-sm btn-danger'>{{anexo_item.titulo}}</a></li>
         {% endfor%}
-        {% if chamado.anexos %}
-        </ul>
-      </div>
-    {% endif %}
-    <div class='card-header text-muted bg-white text-dark'>Chamado Nº {{chamado.id}}</div>
+  
+      
+       <div class='card-header text-muted bg-white text-dark'>Chamado Nº {{chamado.id}}</div>
   </div>
+   </ul>
+ </div>
 
 
 
-<!-- Quando a página carrega, o chamado é listado como "lido", então não mais aparece nas notificações  -->
+<!-- QUANDO A PÁGINA CARREGA, O CHAMADO É LISTADO COMO "LIDO", ENTÃO NÃO MAIS APARECE NAS NOTIFICAÇÕES  -->
+
+{% if request.user.is_atendente == True %} <!-- SOMENTE ATENDENTES PODEM LER O CHAMADO-->
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -126,9 +145,12 @@
 
 
 </script>
-
+{% endif %} <!--VERIFICA SE É ATENDENTE -->
 
 </body>
 </html>
 </div>
 {% endblock %}
+
+
+{% endif %} <!-- FIM DA CHECAGEM POR IS_AUTHENTICATED

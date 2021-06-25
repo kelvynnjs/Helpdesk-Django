@@ -5,8 +5,11 @@
 <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-        
+    
+      
 <div class ='card' style='margin-bottom: 0px; margin-top: 0px'><div class="card-body">
+    {% if request.user.is_atendente %} <!-- VERIFICA SE O USUARIO TEM PERMISSÃO DE ATENDENTE -->
+
 <form class='form' action ='/alterar_status/'method ='POST' >
 
 {% csrf_token %}
@@ -56,10 +59,19 @@
 <button type='submit' style=' margin-top:0px'class ='btn btn-sm btn-square btn-outline-secondary'>Aplicar</button>
 </form>
 
+{% endif %}  <!-- FIM VERIFICAÇÃO ATENDENTE -->
 
-<form action="/excluir_chamado/">
+
+
+
+
+
+
+<form  action="/excluir_chamados/" method='POST'>
+  {% csrf_token %}
+
   <input type="hidden" name="id_chamado" value='{{chamado.id}}'>
-<a id='deletar' type ='submit' style='margin-right: 30px; margin-top: 2px;' href='#' class= 'btn btn-sm btn-danger'><i class='fa fa-trash fa-lg'></i> Excluir chamado {{chamado.id}} </a></form>
+<button id='deletar' type ='submit' style='margin-right: 30px; margin-top: 2px;' class= 'btn btn-sm btn-danger'><i class='fa fa-trash fa-lg'></i> Excluir chamado {{chamado.id}} </button></form>
 <br>
 
 
@@ -70,4 +82,30 @@
 </div>
 
 
+</div>
+
+
+
+{% comment %} MODAL DE UPLOAD DE ANEXO NO CHAMADO {% endcomment %}
+
+
+<div class="modal fade" id="upload_anexo" tabindex="-1" role="dialog" aria-labelledby="modal_upload" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_upload">Upload de Anexo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+        {% include 'extra/form_upload.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+      </div>
+    </div>
+  </div>
 </div>

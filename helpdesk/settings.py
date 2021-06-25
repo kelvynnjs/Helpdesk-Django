@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions', #adicionado
-    'Helpdesk_app'
+    'Helpdesk_app' #adicionado
  
 ]
 
@@ -145,7 +145,7 @@ STATICFILES_DIRS = [
 ]
 
 # Diretório onde ficam os anexos, ou imagens
-MEDIA_URL = '/anexos/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'Helpdesk_app.Usuario'
 
