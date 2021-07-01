@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CadastrarUsuario
-from .models import Chamado, Usuario, Anexo, Mensagem
+from .models import Chamado, Usuario, Anexo, Mensagem, Anexos_chamado
 import datetime
 
 
@@ -153,7 +153,16 @@ def ver_chamado(request, id_chamado):
 
 	context['chamados'] = chamados_si
 
+	anexos = Anexos_chamado.objects.all().filter(chamado=chamado)
+
+
+	context['anexos'] = anexos
+
 	return render(request,"chamado.html", context)
+
+
+
+
 
 #MARCA CHAMADO COMO "LIDO, E RETIRA A TAG 'NOVO'
 @login_required
@@ -520,14 +529,18 @@ def upload_anexo(request):
 
 	if request.method == 'POST':
 		arquivos = request.FILES['input_arquivo']
+		id_chamado = request.POST['id_chamado']
 
 		nome_anexo = arquivos.name
 		novo_anexo = Anexo.objects.create(titulo=nome_anexo,arquivo = arquivos)
 		novo_anexo.save()
+		chamado_obj = Chamado.objects.get(id=id_chamado)
+		novo_cham_anexo = Anexos_chamado.objects.create(anexo = novo_anexo, chamado = chamado_obj )
+		
 
 		messages.success(request,'Anexo {} foi incluido com sucesso'.format(nome_anexo))
 			
-		return HttpResponse('success')
+		return HttpResponseredirect(f'/chamado/{id_chamado}')
 
 
 

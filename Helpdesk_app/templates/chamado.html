@@ -4,7 +4,7 @@
 
 {% if request.user.is_authenticated %}
 
-{% block title %} Chamado Nº {{chamado.id}} {% endblock  %}
+{% block title %} Chamado Nº {{chamado.id}} - {{Nome_Sistema}} {% endblock  %}
 
 {% block body %}
 {% if  request.user.is_atendente %}
@@ -84,22 +84,31 @@
       do chamado:
     </div>
     <div class='card-body' style='background-color: #e6f0f2;'>
-      <p class='card-text' style='padding-left: 1rem;'><h6><strong>{{chamado.titulo|lower|capfirst}}</strong></h6> <br>
+      <p class='card-text' style='padding-left: 1rem;'><h6><strong>{{chamado.titulo|lower|capfirst}}</strong></h6> 
 
-      {{chamado.descricao}}</p>
+        <br>
+
+      <p style='font-weight: normal !important;'>{{chamado.descricao}}</p></p>
     </div>
     <div class="card-header bg-white text-dark">
       Anexos
     </div>
-    {% if chamado.anexo is not None and chamado.anexo > 0 %}
+
+    {% if anexos is not None and anexos.len > 0 %}
+    
+
       <!-- Verifica se existem anexos no chamado atual -->
       <div class='card-body' style='max-width: 85rem;background-color: #e6f0f2;'>
+
         <ul class="list-group list-group-flush">
         {% endif %}
-        {% for anexo_item in chamado.anexo %}
+
+        {% for anexo in anexos %}
+      
+
           <!-- SE HOUVEREM ANEXOS, FAZER FOR LOOP E APRESENTA-LOS AQUI  -->
-          <li class="list-group-item" style=";"><a onclick="window.open('{{anexo_item.arquivo}}')"
-          class='btn btn-sm btn-danger'>{{anexo_item.titulo}}</a></li>
+          <li class="list-group-item" style=";"><a onclick="window.open('/media/{{anexo.anexo.arquivo}}')"
+          class='btn btn-sm btn-danger text-white' style='min-width: 20px'>{{anexo.anexo.titulo}}</a></li>
         {% endfor%}
   
       
