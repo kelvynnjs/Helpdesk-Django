@@ -3,10 +3,185 @@
 
 {% extends 'base.html' %}
 
+
+<style> body{
+
+background-color: lightyellow; }
+
+a:link {
+  color: #23272B;
+    decoration: none; 
+}
+
+a:visited {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+
+}
+
+a:hover {
+  color: #23272B;
+text-decoration: black; 
+    decoration: none; 
+}
+
+a:active {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+}
+</style>
+
+
+{% if request.user.is_authenticated == True %}
+
+{% if request.user.is_atendente == True %} <!-- Verifica se é um atendente -->
+
+
+
+{% block title %} Usuários - {{Nome_Sistema}} {% endblock  %}
+
+  
+{% block body %}  {% include "navbar_painel.html" %}  <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
+
+
+
+
+
+
+ 
+{% endblock %}
+
+<!-- Inclue as notificações -->
 {% block content %} 
+{% include "UI/notificacoes.html"%}  
 
-{% include 'navbar_painel.html' %}
+<div class="card text-center bg-white">
+	<div class="card-header">
+		
+	<div style='padding-bottom: 0rem;' class="card-body">
 
-{% include "UI/notificacoes.html" %}
+
+		{% if usuarios %}
+		<!-- VERIFICA SE EXISTEM USUARIOS -->
+
+		<!-- teste -->
+		<div class='vis_usuarios'>
+			<script>
+				$(document).ready(function () {
+					$.fn.dataTable.moment('DD/MM/YYYY');
+					$('#example').DataTable({
+
+						responsive: true,
+						"pageLength": 10,
+						"order": [
+							[2, "desc"]
+						],
+						"language": {
+							"lengthMenu": "Exibir  _MENU_ itens por página",
+							"zeroRecords": "Nenhuma informação encontrada",
+							"info": "Mostrando página _PAGE_ de _PAGES_",
+							"infoEmpty": "Nenhum registro encontrado",
+							"infoFiltered": "(Total de  _MAX_  registros)",
+							"search": "Pesquisar:",
+							"paginate": {
+								"first": "Primeiro",
+								"last": "Último",
+								"next": "Próximo",
+								"previous": "Anterior"
+							},
+						}
+					});
+				});
+			</script>
+			<table id="example" style='margin:10px; margin-top: 0px; max-width: 100vw'
+				class="table table-striped table-sm table-bordered">
+				<thead>
+					<tr>
+						<!-- Cabeçalho da tabela de usuarios -->
+						<th style='text-align: center;' scope="col">Registro</th>
+						<th style='' scope="col">Usuário</th>
+						<th style='' scope="col">Nome Completo</th>
+						<th style='' scope="col">Data de Criação</th>
+						<th style='text-align: center;' scope="col">Chamados</th>
+						<th style='text-align: center;' scope="col">Nível</th>
+						<th style='text-align: center;' scope="col">Estado</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% else %}
+					<h5>Não existem usuarios com esse filtro </h5>
+					{% endif %}
+					{% for usuario in usuarios %}
+					<!-- loop em todos os usuarios -->
+					<tr>
+						<!-- VALORES EM UMA LINHA NA TABELA -->
+			
+						<td style='text-align: center; font-weight: 600'>{{ usuario.id }}</td>
+						<td style=' text-transform: capitalize; font-weight: 550; text-align: left'>{{ usuario.username }}
+						</td>
+						<td style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/usuario/{{usuario.username}}'
+								style='font-weight: 600; padding:8px'>{{ usuario.nome_completo|lower|capfirst }}</a>
+							</td>
+								<td style=''><small><strong>{{ usuario.data_criacao|date:"d/m/Y"}} às
+									{{usuario.data_criacao|time:" H:i" }}</strong></small></td>
+									<td><center><strong> {{usuario.numero_chamados}}</strong></center></td>
+								
+							 {% if usuario.is_atendente == True %}  <td class="badge badge-info text-white badge-large"> ATENDENTE {% else %} <td class="badge badge-light text-dark badge-large"> COMUM {% endif %}</strong></small></td>
+						
+			
+						<td style='text-align: center; text-transform: uppercase; font-weight: 600;'>
+							<div style='margin:2px;'><span
+									style='padding-left: 20px; padding-right: 20px; font-weight: 550;'
+									{% if usuario.is_active == True %}
+									class="badge badge-success text-white badge-large" Online {% endif %}
+									{% if usuario.is_active == False %} 
+									class="badge badge-secondary text-white badge-large" Offline
+									{% endif %}> </span></div>
+						</td>
+			
+						<!-- -->
+						{% endfor %}
+						<!-- Conclui o Loop -->
+					</tr>
+			</table>
+		</div>
+		<!-- fimteste -->
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
+	</ul>
+</div>
+
+
+
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endif %} <!--FIM VERIFICAÇÃO DE ATENDENTE-->
+
+
+
+
+
+
+{% endif %} <!--FIM VERIFICAÇÃO DE ATENDENTE-->
+

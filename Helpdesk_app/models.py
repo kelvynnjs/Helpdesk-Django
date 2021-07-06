@@ -96,4 +96,4 @@ class Anexo(models.Model):
 
 class Anexos_chamado(models.Model): #LINKA CHAMADO COM ANEXOS
     chamado = models.ForeignKey('Chamado', on_delete=models.DO_NOTHING, null = True, default = None) 
-    anexo = models.ForeignKey('Anexo', on_delete=models.DO_NOTHING, null = True, default = None)
+    anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, null = True, default = None)

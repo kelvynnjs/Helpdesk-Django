@@ -1,3 +1,5 @@
+<!--PAGINA DE CADASTRO DE USUÁRIO - KELVYNN JOSÉ DA SILVA -->
+
 {% extends 'base.html' %}
 
 {% block content%}
@@ -59,6 +61,9 @@
    </div>
    </div>
    <br>
+
+   <!-- Passar parâmetro de diretório atual, para redirecionamento -->
+   <input type="hidden" name="dir_atual" value='{{request.path}}'>
 
    </form>
 </main>

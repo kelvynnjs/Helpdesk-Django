@@ -4,6 +4,7 @@
   <div class="custom-file">
     <input type="file" class="custom-file-input" name='input_arquivo' id="input_arquivo">
     <input type="hidden" name="id_chamado" value='{{chamado.id}}'>
+    <input type="hidden" name="dir_atual" value='{{request.path}}'>
     <label id='escolher_arquivo'class="custom-file-label" for="inputGroupFile04">Escolher um Arquivo</label>
   </div>
   <div class="input-group-append">

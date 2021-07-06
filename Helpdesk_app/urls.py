@@ -10,6 +10,12 @@ path('chamados/', views.Chamado, name='chamados'),
 path('login/', views.login, name='login'),
 path('cadastro/', views.cadastro, name='cadastro'),
 path('usuarios/', views.usuarios, name='usuarios'),
+path('usuario/<str:nome_usuario>', views.ver_usuario, name='ver_usuario'),
+
+
+
+
+
 path('painel/', views.painel, name='painel'), #todos os chamados
 path('painel/abertos', views.chamados_abertos, name='chamados_abertos'), #chamados abertos
 path('painel/fechados', views.chamados_fechados, name='chamados_fechados'),#chamados fechados
@@ -28,8 +34,13 @@ path('sair/', views.sair, name='sair'),
 path('novo_chamado/', views.novo_chamado, name='novo_chamado'),
 path('chamado/<int:id_chamado>', views.ver_chamado, name='ver_chamado'),
 
+
+
+
 #EXTRA
-path('upload_anexo/', views.upload_anexo, name='upload_anexo')
+path('upload_anexo/', views.upload_anexo, name='upload_anexo'),
+path('excluir_anexo/', views.excluir_anexo, name='excluir_anexo')
+
 
 ]
 

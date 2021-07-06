@@ -48,6 +48,7 @@ def home(request):
 		return render(request,"home.html",context)
 
 
+#CADASTRO DE USUÁRIO
 
 def cadastro(request):
 		
@@ -62,6 +63,7 @@ def cadastro(request):
 			try:
 				usuario_nome = Usuario.objects.get(username=request.POST.get('username'))
 				usuario_email = Usuario.objects.get(email=request.POST.get('email'))
+
 				if usuario_nome or usuario_email: #verifica se o nome de usuario já existe
 					messages.error(request,'Esse usuário já existe')
 					redirect('cadastro')
@@ -76,7 +78,7 @@ def cadastro(request):
 				novo_user.save()
 				messages.success(request,'Usuario {} cadastrado com sucesso '.format(nome_usuario)) #Cria o usuario
 
-				return redirect(request, 'cadastro')
+				return redirect('login')
 	   
 
 			
@@ -283,7 +285,7 @@ def excluir_chamados(request): #Exclue os chamados selecionados
 @login_required
 def chamados_abertos(request):
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
 		chamados_ab = Chamado.objects.all().filter(status='aberto')
@@ -307,7 +309,7 @@ def chamados_abertos(request):
 @login_required
 def chamados_fechados(request):
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
 		chamados_ex = Chamado.objects.all().filter(status='fechado')
@@ -326,7 +328,7 @@ def chamados_fechados(request):
 @login_required	
 def chamados_excluidos(request):
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
 		chamados_ex = Chamado.objects.all().filter(status='excluido')
@@ -385,7 +387,7 @@ def chamados_pendentes(request):
 		messages.warning(request,'Você não tem acesso à essa página')
 		return render(request, "home.html", context)
 		
-
+#-----------------FIM LISTAGEM DE CHAMADOS----------------------------------------------------------------------------------------------
 
 
 
@@ -394,7 +396,7 @@ def chamados_pendentes(request):
 @login_required
 def painel(request):   #MOSTRA O PAINEL PRINCIPAL E TODOS OS CHAMADOS
 	context = {}
-	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AP PAINEL
+	if request.user.is_atendente == True:  #CHECA SE O USUÁRIO É UM ATENDENTE, SE SIM, DÁ ACESSO AO PAINEL
 		chamados_si = obter_chamados()
 		novs_cham = obter_novos_chamados()
 		Usuario = request.user
@@ -422,6 +424,9 @@ def alterar_status(request):
 		id_chamado = request.POST.get('id_chamado')
 		o_chamado = Chamado.objects.get(id=id_chamado)
 		o_chamado.status = status_novo
+		if status_novo == 'resolvido':
+				o_chamado.foi_lido = true
+				
 		o_chamado.save()
 		messages.success(request,'Status do chamado Nº {} defino como {} com sucesso!'.format(id_chamado,status_novo.upper()))
 		return redirect('/chamado/{}'.format(id_chamado),request)
@@ -441,7 +446,7 @@ def alterar_status(request):
 
 		sort(lista_num_cham)
 		
-			#print('chamado {} lido foi marcado como {}'.format(id_un,status))
+			
 
 		messages.success(request,'chamados {} foi marcado como {}'.format(lista_num_cham,status))
 			
@@ -497,17 +502,62 @@ def alterar_prioridade(request):
 def usuarios(request):
 	context = {}
 	usuarios = obter_usuarios()
-	context['usuarios'] = usuarios
 	chamados_si = obter_chamados()
 	novs_cham = obter_novos_chamados()
 	Usuario = request.user
 
+
+	chamados = Chamado.objects.all()
+
+	
+
+	
+	numero_chamados = 0
+	for usuario in usuarios:
+		usuario.numero_chamados = Chamado.objects.filter(autor= usuario).count() 
+				 # Representa a quantidade de chamados que cada usuário tem no sistema
+
+
+
+
+	context['usuarios'] = usuarios
 	context['Nome_Sistema'] = Nome_Sistema
 	context['Novos_Chamados'] = novs_cham
+	context['chamados'] = chamados
 
-	context['chamados'] = chamados_si
+
 
 	return render(request, "usuarios.html", context)
+
+
+@login_required
+def ver_usuario(request,nome_usuario):
+	context = {}
+	usuario = Usuario.objects.get(username = nome_usuario)
+	usuarios = obter_usuarios()
+	chamados_si = obter_chamados()
+	novs_cham = obter_novos_chamados()
+	chamados = Chamado.objects.all()
+	
+	numero_chamados = 0
+	for usuario in usuarios:
+		usuario.numero_chamados = Chamado.objects.filter(autor= usuario).count() 
+				 # Representa a quantidade de chamados que cada usuário tem no sistema
+
+	context['usuario'] = usuario
+	context['usuario'] = usuario
+
+	
+	context['Nome_Sistema'] = Nome_Sistema
+	context['Novos_Chamados'] = novs_cham
+	context['chamados'] = chamados
+
+
+
+	return render(request, "usuario_un.html", context)	
+
+
+
 
 
 def obter_usuarios():
@@ -540,17 +590,29 @@ def upload_anexo(request):
 
 		messages.success(request,'Anexo {} foi incluido com sucesso'.format(nome_anexo))
 			
-		return HttpResponseredirect(f'/chamado/{id_chamado}')
+		return HttpResponseRedirect(f'/chamado/{id_chamado}')
+
+@csrf_exempt
+@login_required
+def excluir_anexo(request):
+
+	if request.method == 'POST':
+
+		anexo_id = request.POST.get('anexo_id')
+		dir_anterior = request.POST.get('dir_atual')
+		nome_anexo = Anexo.objects.get(id=anexo_id).titulo
+
+		Anexo.objects.get(id=anexo_id).delete()
+
+		""" nome_anexo = arquivos.name
+		novo_anexo = Anexo.objects.get(titulo=nome_anexo,arquivo = arquivos)
+		novo_anexo.save()
+		chamado_obj = Chamado.objects.get(id=anexo)
+		novo_cham_anexo = Anexos_chamado.objects.create(anexo = novo_anexo, chamado = chamado_obj ) """
+		
+
+		messages.success(request,'Anexo {} foi excluído com sucesso'.format(nome_anexo))
+		return redirect(dir_anterior)
 
 
 
-""" def ver_anexo(request, titulo, id):
-	context = {}
-
-
-	if request.method == 'GET':
-		anexo = anexo.objects.get(id=id_anexo)
-		context['anexo'] =  anexo
-		render(request,'')
-
- """

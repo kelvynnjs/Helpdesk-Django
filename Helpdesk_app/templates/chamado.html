@@ -1,4 +1,5 @@
 <!-- KELVYNN JOSÉ DA SILVA -->
+
 <!-- TRATA-SE DO MODELO BASE DA PÁGINA INDIVIDUAL DO CHAMADO-->
 {% extends 'base.html' %}
 
@@ -107,8 +108,8 @@
       
 
           <!-- SE HOUVEREM ANEXOS, FAZER FOR LOOP E APRESENTA-LOS AQUI  -->
-          <li class="list-group-item" style=";"><a onclick="window.open('/media/{{anexo.anexo.arquivo}}')"
-          class='btn btn-sm btn-danger text-white' style='min-width: 20px'>{{anexo.anexo.titulo}}</a></li>
+          <li class="list-group-item" style=";"><form  action='/excluir_anexo/' method="POST"> {% csrf_token %} <input type="hidden" value='{{anexo.anexo.id}}' name="anexo_id"><a onmouseover="self.ready" onclick="window.open('/media/{{anexo.anexo.arquivo}}')"
+          href='#' style='min-width: 20px'>{{anexo.anexo.titulo}}</a> <small><button style='margin-left: 10px;' type='submit' title='Excluir este anexo' class='btn btn-sm text-danger'> <i class='fa fa-trash fa-sm'></i></button></small></form></li>
         {% endfor%}
   
       

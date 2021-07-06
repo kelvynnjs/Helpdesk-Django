@@ -37,14 +37,11 @@
       <i class="fa fa-user-plus"></i>
     </a>
     
-    <a class="dropdown-item {% if request.path == "/usuarios/"  %} active" {% endif %}" href="{% url 'usuarios'%}">
-    Listar Usuarios
+    <a class="dropdown-item" href="{% url 'usuarios'%}">
+    Gerenciar Usuários
     <i class="fa fa-users"></i>
   </a>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">Another action</a>
-  <div class="dropdown-divider"></div>
-  <a class="dropdown-item" href="#">Something else here</a>
+
 </div>
 </li>
 </ul>

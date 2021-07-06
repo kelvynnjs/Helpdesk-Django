@@ -1,264 +1,61 @@
-<!-- Visualizador de chamados dos atendentes - Kelvynn José da Silva -->
+<!-- Painel de visualização de usuários Kelvynn José da Silva-->
 
+{% extends 'base.html'%}
 
-<div class="row">
-	 <div class='botao col-sm' style='margin-left:10px;margin-bottom: 10px;'><button type="button"
-      class="btn btn-light btn-sm" style='background-color:#3BFF52;color:white;font-weight: 590;' data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
-        style='color:white;' class="fa fa-plus fa-lg"></i> </button></div>
-	<div class='d-flex flex-row-reverse'>
-		<div class='alter p-2 status' style='margin-right: 5px;'>
-				<a id='confirmar_deletar' data-toggle="modal" data-target="#deletar" style='margin-right: 30px; margin-top: 2px;' href='#' onclick="selecionar()" class= 'btn btn-sm btn-danger'><i class='fa fa-trash fa-lg'></i></a>
-			</div>
-		
-		<div class='alter p-2 prioridade' style='margin-right: 10px;'>
-	
-				<select id="selecionar_prioridade" name='selecionar_prioridade' class="form-control"
-					data-role="select-dropdown">
-					<option value=null selected>Alterar Prioridade</a></option>
-					<option value='baixa'>Baixa</a></option>
-					<option value='media'>Media</option>
-					<option value='alta'>Alta </option>
-				</select>
-		</div>
-		<div class='alter p-2 status' style='margin-right: 5px;'>
-			
-				<select id="selecionar_status" name='selecionar_status' class="form-control"
-					data-role="select-dropdown">
-				<option value='None' selected>Alterar status</a></option>
-				<option value ='resolvido'>Resolvido</a></option>
-				<option value ='aberto'>Aberto</option>
-				<option value ='pendente'>Pendente </option>
-				<option value ='fechado'>Fechado</option>
-				</select>
-		</div>
+<style> body{
 
+background-color: lightyellow; }
 
+a:link {
+  color: #23272B;
+    decoration: none; 
+}
 
-
-		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-primary btn-sm'
-				href=# onclick="ler('True');" id='marcar_ler'>Marcar como lido </a></div>
-		<div class='alter p2' style='margin-top:10px; margin-right: 10px;'><a class='btn btn-outline-primary btn-sm'
-				href=# onclick="ler('False');" id='marcar_ler'>Marcar como não lido </a></div>
-	</div>
-</div>
-
-
-
-<!-- Confirmar exclusão de chamado -->
-
-<!-- Modal -->
-<div class="modal fade" id="deletar" tabindex="-1" role="dialog" aria-labelledby="label_deletar" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="label_deletar">Atenção</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div  class="modal-body" id='text_mom'> Você tem certeza que deseja excluir os chamados:
-      	<div class="modal-body" id='text_deletar'>
-       
-        <script>
-
-        	function selecionar() {
-
-		var lista_selec = [];
-
-		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-		if (checkboxes.length > 0 ) {
-		for (var i = 0; i < checkboxes.length; i++) {
-			var chamado_id = checkboxes[i].value;
-			var adicionar = lista_selec.push(chamado_id)}
-
-
-
-
-		/*Mostrar os valores selecionados*/
-		document.getElementById("text_deletar").innerHTML = lista_selec
-	}};
-	
-
-
-	</script>
-
-
-      </div>
-</div>
-      <div class="modal-footer">
-        <a onclick="excluir()" href='#' class="btn btn-danger">Continuar com a exclusão dos itens</a>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-<!-- FUNÇÃO JAVASCRIPT EXCLUIR -->
-<script>
-
-	function excluir() {
-		var lista_marcados_excluir = [];
-		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-
-		if (checkboxes.length > 0 ) {
-		for (var i = 0; i < checkboxes.length; i++) {
-			var chamado_id = checkboxes[i].value;
-			var adicionar = lista_marcados_excluir.push(chamado_id);
-
-
-
-		console.log(lista_marcados_excluir)
-		$.ajax({
-			method: "POST",
-			url: "/excluir_chamados/",
-			data: {
-				id_chamado: lista_marcados_excluir
-			}
-		})
-		window.location.reload()
-	}
-			}
-		}
-</script>
-
-
-
-</script>
-
-
-	<!-- Alterar prioridade -->
-	
-
-<script>
-
-document.getElementById("selecionar_prioridade").onchange = function(){
-     
-
-      alterar_prioridade(this.value);
-
-
-
-    };
-
-
-function alterar_prioridade(valor) {
-		if (valor !== null ) {
-		var lista_prioridade = [];
-		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-		
-
-		if (checkboxes.length > 0 ) {
-		for (var i = 0; i < checkboxes.length; i++) {
-			var chamado_id = checkboxes[i].value;
-			var adicionar = lista_prioridade.push(chamado_id);
-
-
-		}
-		/*console.log(lista_prioridade + ' ' + 'prioridade')*/
-
-
-
-		$.ajax({
-			method: "POST",
-			url: "/alterar_prioridade/",
-			data: {
-				lista_ids: lista_prioridade,
-				prioridade: valor
-			}
-		})
-		window.location.reload()
-	}}
+a:visited {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
 
 }
 
-
-
-
-</script>
-
-
-
-
-
-
-<!-- FUNÇÃO SELECIONAR E ALTERAR STATUS JAVASCRIPT -->
-<script>
-
-document.getElementById("selecionar_status").onchange = function(){
-     
-
-      alterar_status(this.value);
-
-
-
-    }
-
-
-
-
-	function alterar_status(valor) {
-		if (valor !== null ) {
-		var lista_status = [];
-		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-		
-
-		if (checkboxes.length > 0 ) {
-		for (var i = 0; i < checkboxes.length; i++) {
-			var chamado_id = checkboxes[i].value;
-			var adicionar = lista_status.push(chamado_id);
-
-
-		}
-		/*console.log(lista_status + ' ' + 'Status')*/
-
-
-
-		$.ajax({
-			method: "POST",
-			url: "/alterar_status/",
-			data: {
-				lista_ids: lista_status,
-				status: valor
-			}
-		})
-		window.location.reload()
-	}}
+a:hover {
+  color: #23272B;
+text-decoration: black; 
+    decoration: none; 
 }
-</script>
+
+a:active {
+  color: #23272B;
+ text-decoration: black; 
+    decoration: none; 
+}
+</style>
+
+
+{% if request.user.is_authenticated == True %}
+
+{% if request.user.is_atendente == True %} <!-- Verifica se é um atendente -->
+
+
+
+{% block title %} Usuários - {{Nome_Sistema}} {% endblock  %}
+
+  
+{% block body %}  {% include "navbar_painel.html" %}  <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 
 
 
 
-<!-- FUNÇÃO JAVASCRIPT LER -->
-<script>
-
-	function ler(valor) {
-		var lista_marcados = [];
-		var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-		if (checkboxes.length > 0 ) {
-		for (var i = 0; i < checkboxes.length; i++) {
-			var chamado_id = checkboxes[i].value;
-			var adicionar = lista_marcados.push(chamado_id);
 
 
-		}
-		console.log(lista_marcados)
-		$.ajax({
-			method: "POST",
-			url: "/ler_chamado/",
-			data: {
-				id_chamado: lista_marcados,
-				foi_lido: valor
-			}
-		})
-		window.location.reload()
-	}}
-</script>
+ 
+{% endblock %}
+
+<!-- Inclue as notificações -->
+{% block content %} 
+{% include "UI/notificacoes.html"%}  
+
+	
 <div class="card text-center bg-white">
 	<div class="card-header">
 		<ul class="nav nav-tabs card-header-tabs">
@@ -293,11 +90,11 @@ document.getElementById("selecionar_status").onchange = function(){
 	<div style='padding-bottom: 0rem;' class="card-body">
 
 
-		{% if chamados %}
+		{% if usuarios %}
 		<!-- VERIFICA SE EXISTEM CHAMADOS -->
 
 		<!-- teste -->
-		<div class='vis_chamados'>
+		<div class='vis_usuarios'>
 			<script>
 				$(document).ready(function () {
 					$.fn.dataTable.moment('DD/MM/YYYY');
@@ -408,3 +205,35 @@ document.getElementById("selecionar_status").onchange = function(){
 		<li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
 	</ul>
 </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endif %} <!--FIM VERIFICAÇÃO DE ATENDENTE-->
+
+
+
+
+
+
+{% endif %} <!--FIM VERIFICAÇÃO DE ATENDENTE-->
+

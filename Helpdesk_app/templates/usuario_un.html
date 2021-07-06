@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} {{usuario.username}} - {{Nome_Sistema}}{% endblock title %}
+
+{% block body %}  {% include "navbar_painel.html" %}  <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
+
+
+
+
+
+
+ 
+{% endblock %}
+
+<!-- Inclue as notificações -->
+{% block content %} 
+
+{% include "UI/notificacoes.html"%}  
+
+
+
+
+
+{% endblock content %}
