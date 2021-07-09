@@ -48,6 +48,53 @@ def home(request):
 		return render(request,"home.html",context)
 
 
+#Página de Configurações
+@login_required
+def config(request):
+	context = {}
+	chamados_si = obter_chamados()
+	novs_cham = obter_novos_chamados()
+	context = {}
+
+
+
+	context['Nome_Sistema'] = Nome_Sistema
+
+	context['Nome_Empresa'] = Nome_Empresa
+
+	context['Novos_Chamados'] = novs_cham
+
+	context['chamados'] = chamados_si
+
+
+
+
+	
+
+	if request.user.is_authenticated:
+		if request.user.is_atendente == True:
+			return render(request, "UI/configuracoes.html", context)
+
+
+
+
+		else:
+
+
+			return render(request,"home.html",context)
+
+
+
+
+
+
+
+
+
+
+
+
+
 #CADASTRO DE USUÁRIO
 
 def cadastro(request):
@@ -612,7 +659,13 @@ def excluir_anexo(request):
 		
 
 		messages.success(request,'Anexo {} foi excluído com sucesso'.format(nome_anexo))
-		return redirect(dir_anterior)
+
+		if dir_anterior != None:
+			return redirect(dir_anterior)
+		else:
+			return redirect('home')
+
+	
 
 
 

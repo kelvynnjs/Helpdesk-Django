@@ -71,6 +71,7 @@
   {% csrf_token %}
 
   <input type="hidden" name="id_chamado" value='{{chamado.id}}'>
+ <input type="hidden" name="dir_atual" value='{{request.path}}'>
 <button id='deletar' type ='submit' style='margin-right: 30px; margin-top: 2px;' class= 'btn btn-sm btn-danger'><i class='fa fa-trash fa-lg'></i> Excluir chamado {{chamado.id}} </button></form>
 <br>
 

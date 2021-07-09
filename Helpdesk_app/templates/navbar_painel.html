@@ -14,7 +14,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href='{% url 'painel'%}' class="nav-link {% if request.path == "/painel/"  %} active" {% endif %} href="/painel">
+        <a href='{% url 'chamados_abertos'%}' {% with painel = "painel"% } class="nav-link {% if painel in  request.path %} active" {% endif %} href="/painel">
         <i class="fa fa-ticket">
         {% if Novos_Chamados is not None and Novos_Chamados > 0 %} <!-- Quantidade de chamados na area de notificação -->
         <span class="badge badge-danger">{{Novos_Chamados}}</span>

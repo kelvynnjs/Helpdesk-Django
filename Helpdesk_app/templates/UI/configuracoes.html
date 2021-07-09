@@ -1,0 +1,80 @@
+<!-- KELVYNN JOSÉ DA SILVA -->
+
+<!-- TRATA-SE DO MODELO BASE DA PÁGINA INDIVIDUAL DO CHAMADO-->
+{% extends 'base.html' %}
+
+
+
+{% block title %} Configurações - {{Nome_Sistema}} {% endblock  %}
+
+{% block body %}
+{% if request.user.is_atendente %}
+
+    {% include "navbar_painel.html" %}
+{% else %}
+   {% include "navbar.html" %}
+{% endif %}
+<!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
+{% endblock %}
+
+
+{% block content %} {% include "UI/notificacoes.html"%} 
+
+
+{% include "UI/botao_opcoes_chamado.html" %}
+
+
+
+
+<div class="card corpo_card" style='max-width: 85rem;'>
+  <div class="card-body" style="max-width: 85rem;">
+    
+
+
+
+
+{% if request.user.is_atendente %}
+
+
+{% endif %}
+
+
+<div class='container'><div class ='card config_user'>
+
+
+<div class='card-body'>
+    
+<h4 style='text-align: center;'> CONFIGURAÇÕES </h4>
+
+
+
+
+
+<br>
+
+
+<ul>
+    <li>Nome do Sistema: <strong>{{Nome_Sistema}}</strong></li>
+    <li>Nome da Empresa: <strong>{{Nome_Empresa}}</strong></li>
+   
+
+</ul>
+
+
+
+
+</div>
+
+
+
+    
+</div>
+
+
+
+</div>
+
+</div>
+</div>
+
+{% endblock%}

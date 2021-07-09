@@ -13,7 +13,7 @@ path('usuarios/', views.usuarios, name='usuarios'),
 path('usuario/<str:nome_usuario>', views.ver_usuario, name='ver_usuario'),
 
 
-
+path('config/', views.config, name='config'),
 
 
 path('painel/', views.painel, name='painel'), #todos os chamados

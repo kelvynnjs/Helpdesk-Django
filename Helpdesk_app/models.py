@@ -97,3 +97,15 @@ class Anexo(models.Model):
 class Anexos_chamado(models.Model): #LINKA CHAMADO COM ANEXOS
     chamado = models.ForeignKey('Chamado', on_delete=models.DO_NOTHING, null = True, default = None) 
     anexo = models.ForeignKey('Anexo', on_delete=models.CASCADE, null = True, default = None)
+
+
+
+
+
+ #Define a empresa que utiliza do sistema, e o nome do sistema #:personalização
+
+class Sistema(models.Model):
+    
+    Nome_Empresa = models.CharField(max_length =50)
+
+    Nome_Sistema = models.CharField(max_length=50)
