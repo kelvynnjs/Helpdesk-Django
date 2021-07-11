@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-
 
 {% load static %}
+
 
 
 <html lang="pt-br">
@@ -32,14 +31,15 @@
     <script type="text/javascript" src="{% static 'DataTables/datetime-moment.js' %}"></script>
     <link rel='stylesheet' href='https://cdn.datatables.net/responsive/2.2.7/css/responsive.dataTables.min.css'>
     <script type='text/javascript'src='https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js'> </script>
-
-
+    
     {% block head %} {% endblock %}
   </head>
   <body>
     {% block body %} {% endblock %}
     {% block content %}{% endblock %}
+  {% comment %} <audio id='notificasom' controls > <source type="audio/mpeg" src = "{% static 'audio/notificacao.wav'%}"></source> </audio> {% endcomment %}
 
-
+    
   </body>
 </html>
+

@@ -27,21 +27,21 @@
 
 
 
-<style> body{background-color: #7cccaa; outline-color: transparent;} .corpo_card{background-color: #9AFFEE; outline-color: transparent;}</style>
+<style> body{background-color: #9AFFEE;outline-color: transparent;} .corpo_card{background-color: #9AFFEE; outline-color: transparent;}</style>
 
 
 
 
 
-<div class="card corpo_card" style='max-width: 85rem;'>
-  <div class="card-body" style="max-width: 85rem;">
+<div class="card corpo_card" style='max-width: 100vw;'>
+  <div class="card-body" style="max-width: 100vw;">
     
     
 
 
     <span class='badge badge-primary'></span>
     <div class='card-header bg-light text-dark'
-      style='margin-top: 2rem;max-width: 85rem; max-height: 15rem;font-weight: 570;'>
+      style='margin-top: 2rem;max-width: 100vw; max-height: 15rem;font-weight: 570;'>
       <h5 style="margin-top:5px;"> <a class='bg-light text-dark'> CHAMADO Nº # {{chamado.id}}
         <!-- colocar o número do chamado aqui --></a> <a style="">- {{chamado.titulo|lower|capfirst}}</a>
         <span class='text-white' style='margin-left: 15px;'><a class ='container'
@@ -81,7 +81,7 @@
 
     </div>
     
-    <div class="card-header bg-white text-dark" style='max-width: 85rem; max-height: 15rem;font-weight: 570;'>Descrição
+    <div class="card-header bg-white text-dark" style='max-width: 100vw; max-height: 15rem;font-weight: 570;'>Descrição
       do chamado:
     </div>
     <div class='card-body' style='background-color: #e6f0f2;'>
@@ -99,7 +99,7 @@
     
 
       <!-- Verifica se existem anexos no chamado atual -->
-      <div class='card-body' style='max-width: 85rem;background-color: #e6f0f2;'>
+      <div class='card-body' style='max-width: 100vw;background-color: #e6f0f2;'>
 
         <ul class="list-group list-group-flush">
         {% endif %}
@@ -114,9 +114,18 @@ excluir
   
       
        <div class='card-header text-muted bg-white text-dark'>Chamado Nº {{chamado.id}}</div>
+         	<ul class="list-group list-group-flush">
+     	<ul class="list-group list-group-flush fixed-bottom">
+		<center><li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li></center>
+	</ul>
   </div>
+  
    </ul>
+    
+ 
+
  </div>
+ 
 
 
 

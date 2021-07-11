@@ -1,7 +1,7 @@
 <!-- Visualizador de chamados dos atendentes - Kelvynn José da Silva -->
 
 
-<div class="row">
+<div class="row" style='width:100vw'>
 	 <div class='botao col-sm' style='margin-left:10px;margin-bottom: 10px;'><button type="button"
       class="btn btn-success btn-sm" style ='font-weight: 590;' data-toggle="modal" data-target=".bd-example-modal-lg">Abrir novo Chamado <i
         style='color:white;' class="fa fa-plus fa-lg"></i> </button></div>
@@ -303,6 +303,8 @@ document.getElementById("selecionar_status").onchange = function(){
 					$.fn.dataTable.moment('DD/MM/YYYY');
 					$('#example').DataTable({
 
+						
+
 						responsive: true,
 						"pageLength": 10,
 						"order": [
@@ -325,6 +327,9 @@ document.getElementById("selecionar_status").onchange = function(){
 					});
 				});
 			</script>
+
+
+
 			<table id="example" style='margin:10px; margin-top: 0px; max-width: 100vw'
 				class="table table-striped table-sm table-bordered">
 				<thead>
@@ -348,26 +353,26 @@ document.getElementById("selecionar_status").onchange = function(){
 					<!-- loop em todos os chamados -->
 					<tr>
 						<!-- VALORES EM UMA LINHA NA TABELA -->
-						<td style='text-align: center; font-weight: 600'>
+						<td class='align-middle' style='text-align: center; font-weight: 600'>
 							<center>
 								<input type="checkbox" value={{operacao_}}{{chamado.id}} id='{{chamado.id}}'
 									style='width:20px; height:20px'> <!-- CHECKBOX PARA AÇÕES -->
 								<form />
 							</center>
 						</td>
-						<td style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
-						<td style=' text-transform: capitalize; font-weight: 550; text-align: left'>{{ chamado.autor.nome_completo }}
+						<td class='align-middle' style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
+						<td class='align-middle' style=' text-transform: capitalize; font-weight: 550; text-align: left;'>{{ chamado.autor.nome_completo }}
 						</td>
-						<td style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
+						<td class='align-middle' style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
 								style='font-weight: 600; padding:8px'>{{ chamado.titulo|lower|capfirst }}</a>
 							{% if chamado.foi_lido == False %} <small><span style='font-weight: 600'
-									class="badge badge-success">Novo</span></small>
+									class="badge badge-success align-top">Novo</span></small>
 							{% endif %}</td>
-						<td style=''>{{ chamado.topico }}</td>
-						<td style='text-align: center;'>
+						<td class='align-middle' style=''>{{ chamado.topico }}</td>
+						<td class='align-middle' style='text-align: center;'>
 							<small><strong>{{ chamado.hora_abertura|date:"d/m/Y"}} às
 									{{chamado.hora_abertura|time:" H:i" }}</strong></small></td>
-						<td style='text-align: center; text-transform: uppercase; font-weight: 600;'>
+						<td class='align-middle' style='text-align: center; text-transform: uppercase; font-weight: 600;'>
 							<div style=' margin:2px;'><span
 									style='padding-left: 20px; padding-right: 20px; font-weight: 550;'
 									{% if chamado.prioridade == "alta"%}
@@ -402,9 +407,10 @@ document.getElementById("selecionar_status").onchange = function(){
 					</tr>
 			</table>
 		</div>
+		
 		<!-- fimteste -->
 	</div>
-	<ul class="list-group list-group-flush">
+	<ul class="list-group list-group-flush fixed-bottom">
 		<li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
 	</ul>
 </div>

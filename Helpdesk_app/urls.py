@@ -11,6 +11,8 @@ path('login/', views.login, name='login'),
 path('cadastro/', views.cadastro, name='cadastro'),
 path('usuarios/', views.usuarios, name='usuarios'),
 path('usuario/<str:nome_usuario>', views.ver_usuario, name='ver_usuario'),
+path('obter_notificacoes/', views.obter_notificacoes, name='obter_notificacoes'),
+
 
 
 path('config/', views.config, name='config'),

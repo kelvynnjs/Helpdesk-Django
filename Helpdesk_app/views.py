@@ -9,8 +9,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from .forms import CadastrarUsuario
+from django.http import JsonResponse
 from .models import Chamado, Usuario, Anexo, Mensagem, Anexos_chamado
 import datetime
+import time
+
+
+def obter_notificacoes (request): #OBTEM NOVOS CHAMADOS DE MANEIRA ASSÍNCRONA USANDO AJAX
+	
+	novos_chamados = obter_novos_chamados()
+	#novas_mensagens = obter_novas_mensagens()
+	data = {'novos_chamados': novos_chamados}
+
+	return JsonResponse(data)
+
+
 
 
 # SÃO AS VISÕES DO APP

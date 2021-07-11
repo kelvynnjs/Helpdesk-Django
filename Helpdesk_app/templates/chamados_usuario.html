@@ -46,26 +46,26 @@
 					<tr>
 						<!-- VALORES EM UMA LINHA NA TABELA -->
 					
-						<td style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
+						<td class='align-middle' style='text-align: center; font-weight: 600'>{{ chamado.id }}</td>
 						
-						<td style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
+						<td class='align-middle' style=' text-align: left;'><a href='{{ request.scheme }}://{{ request.get_host }}/chamado/{{chamado.id}}'
 								style='font-weight: 600; padding:8px'>{{ chamado.titulo|lower|capfirst }}</a>
 							{% if chamado.foi_lido == False %} <small><span style='font-weight: 600'
-									class="badge badge-success">Novo</span></small>
+									class="badge badge-success align-top">Novo</span></small>
 							{% endif %}</td>
-						<td style=''>{{ chamado.topico }}</td>
-						<td style='text-align: center;'>
+						<td class='align-middle' style=''>{{ chamado.topico }}</td>
+						<td class='align-middle' style='text-align: center;'>
 							<small><strong>{{ chamado.hora_abertura|date:"d/m/Y"}} às
 									{{chamado.hora_abertura|time:" H:i" }}</strong></small>
-						<td {% if chamado.status == "excluido"%} class=" text-white"
+						<td {% if chamado.status == "excluido"%} class=" text-white align-middle"
 							style='text-transform:uppercase;font-weight: 600;text-align: center;background-color: #EC5858;'
-							{% endif %} {% if chamado.status == 'fechado'%} class=" text-white"
+							{% endif %} {% if chamado.status == 'fechado'%} class=" text-white align-middle"
 							style='text-transform:uppercase;font-weight: 600;text-align: center;background-color: #EC8F6A;'
-							{% endif %} {% if chamado.status == 'aberto'%} class=" text-white"
+							{% endif %} {% if chamado.status == 'aberto'%} class=" text-white align-middle"
 							style='text-transform:uppercase;font-weight: 600;text-align: center;background-color: #1EAE98;'
-							{% endif %} {% if chamado.status == 'pendente'%} class=" text-white"
+							{% endif %} {% if chamado.status == 'pendente'%} class=" text-white align-middle"
 							style='text-transform:uppercase;font-weight: 600;text-align: center;background-color: #AC66CC;'
-							{% endif %} {% if chamado.status == 'resolvido'%} class=" text-white"
+							{% endif %} {% if chamado.status == 'resolvido'%} class=" text-white align-middle"
 							style='text-transform:uppercase;font-weight: 600;text-align: center;background-color: #54E346;'
 							{% endif %}>
 							<!-- verifica propriedade "PRIORIDADE" dos chamados individualmente e colore o fundo do badge-->

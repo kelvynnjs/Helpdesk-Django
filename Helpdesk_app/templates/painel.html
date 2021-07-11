@@ -1,36 +1,26 @@
 <!-- Painel de Gerenciamento - Kelvynn José da Silva -->
 
 {% extends "base.html" %}
-<style> body{
 
-background-color: lightcyan; }
+{% block head %}
+<style>
 
-a:link {
-  color: #23272B;
-    decoration: none; 
-}
 
-a:visited {
-  color: #23272B;
- text-decoration: black; 
-    decoration: none; 
+
+#example_length > label{
+float: left !important;}
+
+#example_wrapper > div:nth-child(3) > div.col-sm-12.col-md-5{padding-bottom:10px}
 
 }
 
-a:hover {
-  color: #23272B;
-text-decoration: black; 
-    decoration: none; 
-}
 
-a:active {
-  color: #23272B;
- text-decoration: black; 
-    decoration: none; 
-}
+
+
+
 </style>
 
-
+{% endblock head %}
 {% block title %} Painel - {{Nome_Sistema}} {% endblock  %}
 
   
