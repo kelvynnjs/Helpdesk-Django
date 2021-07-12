@@ -1,0 +1,1 @@
+Teste de leitura e identificação de padrões em texto com python
