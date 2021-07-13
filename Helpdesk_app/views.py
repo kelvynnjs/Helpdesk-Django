@@ -593,21 +593,16 @@ def usuarios(request):
 @login_required
 def ver_usuario(request,nome_usuario):
 	context = {}
-	usuario = Usuario.objects.get(username = nome_usuario)
-	usuarios = obter_usuarios()
+	usuario_un = Usuario.objects.get(username = nome_usuario)
 	chamados_si = obter_chamados()
 	novs_cham = obter_novos_chamados()
 	chamados = Chamado.objects.all()
 	
 	numero_chamados = 0
-	for usuario in usuarios:
-		usuario.numero_chamados = Chamado.objects.filter(autor= usuario).count() 
+	usuario_un.numero_chamados = Chamado.objects.filter(autor= usuario_un).count() 
 				 # Representa a quantidade de chamados que cada usuário tem no sistema
 
-	context['usuario'] = usuario
-	context['usuario'] = usuario
-
-	
+	context['usuario'] = usuario_un
 	context['Nome_Sistema'] = Nome_Sistema
 	context['Novos_Chamados'] = novs_cham
 	context['chamados'] = chamados

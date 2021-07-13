@@ -67,9 +67,9 @@ class Chamado(models.Model):
 #------------------------------------usuario--------------------------------------#
 class Usuario(AbstractUser):
     nome_completo = models.CharField(max_length=120) # nome completo do usuário
-    data_criacao = models.DateTimeField(auto_now_add=True) #data de criação do usuário
-    data_modificacao = models.DateTimeField(auto_now=True) #data de modificação do usuário
-    is_atendente = models.BooleanField(default=False) #Define se o usuário é um atendente ou não
+    data_criacao = models.DateTimeField(auto_now_add=True) # data de criação do usuário
+    data_modificacao = models.DateTimeField(auto_now=True) # data de modificação do usuário
+    is_atendente = models.BooleanField(default=False) # Define se o usuário é um atendente ou não
     
     def __str__(self):
         return self.username
@@ -81,13 +81,13 @@ class Usuario(AbstractUser):
 class Mensagem(models.Model): 
     autor_mensagem = models.ForeignKey('Usuario', related_name='autor_mensagem', on_delete=models.CASCADE) # quem escreve a mensagem
     hora_mensagem = models.DateTimeField(auto_now_add=True) # HORA QUE A MENSAGEM FOI ENVIADA 
-    texto = models.TextField() #texto da mensagem
+    texto = models.TextField() # texto da mensagem
     receptor_mensagem = models.ForeignKey('Usuario',related_name='receptor_mensagem',on_delete=models.CASCADE) # quem recebe a mensagem
     
 
 
 
-#Anexo (representa a classe das imagens anexadas no sistema)
+# Anexo (representa a classe das imagens anexadas no sistema)
 class Anexo(models.Model):
     titulo = models.CharField(max_length=50)
     arquivo = models.FileField(upload_to = '')

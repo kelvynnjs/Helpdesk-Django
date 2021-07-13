@@ -4,41 +4,14 @@
 {% extends 'base.html' %}
 
 
-<style> body{
-
-background-color: lightyellow; }
-
-a:link {
-  color: #23272B;
-    decoration: none; 
-}
-
-a:visited {
-  color: #23272B;
- text-decoration: black; 
-    decoration: none; 
-
-}
-
-a:hover {
-  color: #23272B;
-text-decoration: black; 
-    decoration: none; 
-}
-
-a:active {
-  color: #23272B;
- text-decoration: black; 
-    decoration: none; 
-}
-</style>
-
 
 {% if request.user.is_authenticated == True %}
 
 {% if request.user.is_atendente == True %} <!-- Verifica se é um atendente -->
 
-
+{% block head%} <style> #example_length > label{
+	float: left;
+}</style>{% endblock%}
 
 {% block title %} Usuários - {{Nome_Sistema}} {% endblock  %}
 
@@ -52,6 +25,9 @@ a:active {
 
  
 {% endblock %}
+
+
+
 
 <!-- Inclue as notificações -->
 {% block content %} 
@@ -128,8 +104,7 @@ a:active {
 									{{usuario.data_criacao|time:" H:i" }}</strong></small></td>
 									<td><center><strong> {{usuario.numero_chamados}}</strong></center></td>
 								
-							 {% if usuario.is_atendente == True %}  <td class="badge badge-info text-white badge-large"> ATENDENTE {% else %} <td class="badge badge-light text-dark badge-large"> COMUM {% endif %}</strong></small></td>
-						
+							 <td>{% if usuario.is_atendente == True %}<center>   <span class="badge badge-info text-white badge-large"> ATENDENTE {% else %}<center>  <span class="badge badge-light text-dark badge-large" style='padding-left: 5px; padding-right: 5px;'> COMUM {% endif %}</strong></small></span> </center></td>
 			
 						<td style='text-align: center; text-transform: uppercase; font-weight: 600;'>
 							<div style='margin:2px;'><span
@@ -149,8 +124,8 @@ a:active {
 		</div>
 		<!-- fimteste -->
 	</div>
-	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
+	<ul class="list-group list-group-flush fixed-bottom">
+		<li class="list-group-item "><a class='text-muted'>{{Nome_Sistema}}</a></li>
 	</ul>
 </div>
 

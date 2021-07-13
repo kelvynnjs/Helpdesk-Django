@@ -2,23 +2,96 @@
 
 {% block title %} {{usuario.username}} - {{Nome_Sistema}}{% endblock title %}
 
-{% block body %}  {% include "navbar_painel.html" %}  <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
+{% block body %}
+{% include "navbar_painel.html" %}
+<!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO--->
 
 
 
-
-
-
- 
 {% endblock %}
 
-<!-- Inclue as notificações -->
-{% block content %} 
+{% block content %}
+<!-- Inclue as notificações ---->
 
-{% include "UI/notificacoes.html"%}  
-
-
+{% include "UI/notificacoes.html"%}
 
 
 
-{% endblock content %}
+
+<style>
+  body {
+    background-color: #9AFFEE;
+    outline-color: transparent;
+  }
+
+  .corpo_card {
+    background-color: #9AFFEE;
+    outline-color: transparent;
+  }
+</style>
+
+
+
+
+
+
+
+<div class="card corpo_card" style='max-width: 100vw;'>
+  <div class="card-body" style="max-width: 100vw;">
+
+
+
+
+    <span class='badge badge-primary'></span>
+    <div class='card-header bg-light text-dark'
+      style='margin-top: 2rem;max-width: 100vw; max-height: 15rem;font-weight: 570;'>
+      <h5 style="margin-top:5px;">Usuário: <a class='bg-light text-dark'> {{usuario.username}}
+          <!-- colocar o número do chamado aqui --></a> <a>{{chamado.titulo|lower|capfirst}}</a>
+        <span class='text-white' style='margin-left: 15px;'><a class='container'></a>
+
+
+          <div class='card-header bg-light text-dark'><small>
+              <p style='margin-top:15px' class=' text-muted text-dark'>Criado em {{usuario.data_criacao}}</p>
+            </small>
+
+            <small>
+              <p class='card-text text-dark' style='font-weight: 580; display: inline;'>Nome Completo: <p
+                  class='text-dark' style='display: inline; font-weight: 580'>{{usuario.nome_completo|lower|title}}</p>
+              </p>
+            </small></p>
+
+            <small>
+              <p class='card-text text-dark' style='font-weight: 580; display: inline;'>Data de Modificação: <p
+                  class='text-dark' style='display: inline; font-weight: 580; font-size: 15px'>
+                  {{usuario.data_modificacao}}</p>
+              </p>
+              </p>
+            </small>
+
+          </div>
+
+          <div class="card-header bg-white text-dark" style='max-width: 100vw; max-height: 15rem;font-weight: 570;'>
+            Descrição
+            do chamado:
+          </div>
+          <div class='card-body' style='background-color: #e6f0f2;'>
+            <p class='card-text' style='padding-left: 1rem;'>
+              <h6><strong>{{chamado.titulo|lower|capfirst}}</strong></h6>
+
+              <br>
+
+              <p style='font-weight: normal !important;'>{{chamado.descricao}}</p>
+            </p>
+          </div>
+          <div class="card-header bg-white text-dark">
+            Anexos
+          </div>
+
+          <!-- Verifica se existem anexos no chamado atual -->
+          <div class='card-body' style='max-width: 100vw;background-color: #e6f0f2;'>
+
+            <ul class="list-group list-group-flush">
+
+
+
+              {% endblock content %}
