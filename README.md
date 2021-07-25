@@ -5,8 +5,8 @@ Projeto Integrador -  IFPR TADS 2021
 
 
 ---------------------------------------------------------------------------------------------------------------------------
-**
-Execução do server**
+**Execução do server**
+
 cd Helpdesk-Django
 
 venv\scripts\activate
