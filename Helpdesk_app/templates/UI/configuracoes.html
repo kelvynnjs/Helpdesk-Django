@@ -46,22 +46,37 @@
     
 <h4 style='text-align: center;'> CONFIGURAÇÕES </h4>
 
-
-
-
+ <br>
 
 <br>
 
 
 <ul>
-    <li>Nome do Sistema: <strong>{{Nome_Sistema}}</strong></li>
-    <li>Nome da Empresa: <strong>{{Nome_Empresa}}</strong></li>
-   
+    <li>Nome do Sistema: <strong id='nome_sis'>{{Nome_Sis}}</strong></li>
+    <li>Nome da Empresa: <strong id='nome_emp'>{{Nome_Empresa}}</strong></li>
+ 
 
 </ul>
+<div>
+<br>
+
+<h5>Alterar Nomes</h5>
+<br>
+
+<form method='post' action='/alterar_sistema/'>
+    <label for="nomsis">Nome do Sistema</label>
+    <input id ='nomsis'type="text" name="Nome_Empresa"> </div>
+  
+    {% csrf_token %}
 
 
 
+     <label for="nompe">Nome da Empresa</label> 
+    <input id='nompe' type="text" name="Nome_Sistema">  <br> <br>
+
+
+    <button type='submit' class='btn btn-success aling-middle '> <i class='fa fa-check'></i> </button>
+  </form> 
 
 </div>
 

@@ -16,6 +16,9 @@ path('obter_notificacoes/', views.obter_notificacoes, name='obter_notificacoes')
 
 
 path('config/', views.config, name='config'),
+path('alterar_sistema/', views.alterar_sistema, name='alterar_sistema'),
+
+path('perfil/', views.config, name='perfil'),
 
 
 path('painel/', views.painel, name='painel'), #todos os chamados

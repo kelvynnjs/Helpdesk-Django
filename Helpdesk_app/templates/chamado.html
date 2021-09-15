@@ -12,7 +12,7 @@
 
     {% include "navbar_painel.html" %}
 {% else %}
-    {% include "navbar.html" %}
+   {% include "navbar.html" %}
 {% endif %}
 <!-- ISSO INCLUE A BARRA DE NAVEGAÇÃO-->
 {% endblock %}
@@ -27,7 +27,7 @@
 
 
 
-<style> body{background-color: #9AFFEE;outline-color: transparent;} .corpo_card{background-color: #9AFFEE; outline-color: transparent;}</style>
+<style> body{outline-color: transparent;} .corpo_card{background-color: #9AFFEE; outline-color: transparent;}</style>
 
 
 
@@ -108,20 +108,20 @@
       
 
           <!-- SE HOUVEREM ANEXOS, FAZER FOR LOOP E APRESENTA-LOS AQUI  -->
-excluir
+          <li class="list-group-item" style=";"><form  action='/excluir_anexo/' method="POST"> {% csrf_token %} <input type="hidden" value='{{anexo.anexo.id}}' name="anexo_id"><a onmouseover="self.ready" onclick="window.open('/media/{{anexo.anexo.arquivo}}')"
           href='#' style='min-width: 20px'>{{anexo.anexo.titulo}}</a> <small><button style='margin-left: 10px;' type='submit' title='Excluir este anexo' class='btn btn-sm text-danger'> <i class='fa fa-trash fa-sm'></i></button></small></form></li>
         {% endfor%}
   
       
        <div class='card-header text-muted bg-white text-dark'>Chamado Nº {{chamado.id}}</div>
+         	<ul class="list-group list-group-flush">
+     	<ul class="list-group list-group-flush">
+		<li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li>
+	</ul>
   </div>
   
    </ul>
     
-         	<ul class="list-group list-group-flush">
-     	<ul class="list-group list-group-flush bottom">
-		<center><li class="list-group-item"><a class='text-muted'>{{Nome_Sistema}}</a></li></center>
-	</ul>
  
 
  </div>

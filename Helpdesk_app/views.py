@@ -1,21 +1,26 @@
 #KELVYNN JOSÉ DA SILVA - IFPR - 2021
 
-from django.shortcuts import render
-from django.contrib.auth import authenticate, logout, login as auth_login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages
-from django.views.decorators.http import require_POST
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponse, redirect, HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
-from .forms import CadastrarUsuario
-from django.http import JsonResponse
-from .models import Chamado, Usuario, Anexo, Mensagem, Anexos_chamado
-import datetime
+# SÃO AS VISÕES DO APP
+
 import time
+import datetime
+
+from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.http import JsonResponse
+from django.shortcuts import (HttpResponse, HttpResponseRedirect, redirect,render)
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
+from .forms import CadastrarUsuario
+from .models import Anexo, Anexos_chamado, Chamado, Mensagem, Usuario, Sistema
 
 
-def obter_notificacoes (request): #OBTEM NOVOS CHAMADOS DE MANEIRA ASSÍNCRONA USANDO AJAX
+def obter_notificacoes (request): #OBTEM NOVOS CHAMADOS USANDO AJAX (futura implementação assíncrona futuramente)
 	
 	novos_chamados = obter_novos_chamados()
 	#novas_mensagens = obter_novas_mensagens()
@@ -24,18 +29,21 @@ def obter_notificacoes (request): #OBTEM NOVOS CHAMADOS DE MANEIRA ASSÍNCRONA U
 	return JsonResponse(data)
 
 
-
-
-# SÃO AS VISÕES DO APP
-
-
-
 #VARIAVEIS e CONSTANTES
 
+Nome_Empresa_text = Sistema.objects.get(id=1).Nome_Empresa
 
-Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
+Nome_Sistema_text = Sistema.objects.get(id=1).Nome_Sistema
 
-Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
+Nome_Sistema = "{} - {}".format(Nome_Sistema_text, Nome_Empresa_text)
+
+Nome_Empresa = Nome_Empresa_text
+
+
+#Nome_Sistema = 'Helpdesk - {}'.format(Nome_Empresa) # Define o Nome do Sistema
+
+#Nome_Empresa = 'Instituto Federal do Paraná' # Define o Nome da Empresa
+
 
 
 #Cria a pagina inicial do usuario "PAINEL DO USUARIO"
@@ -71,13 +79,15 @@ def config(request):
 
 
 
-	context['Nome_Sistema'] = Nome_Sistema
+	context['Nome_Sis'] = Sistema.objects.get(id=1).Nome_Sistema
 
 	context['Nome_Empresa'] = Nome_Empresa
 
 	context['Novos_Chamados'] = novs_cham
 
 	context['chamados'] = chamados_si
+
+	context['Nome_Sistema'] = Nome_Sistema
 
 
 
@@ -96,8 +106,39 @@ def config(request):
 
 			return render(request,"home.html",context)
 
+@login_required
+def alterar_sistema(request):
+	
+	if request.user.is_atendente == True:
+    		
+		sis = Sistema.objects.get(id=1)
+
+		if request.POST['Nome_Empresa'] is not None and request.POST['Nome_Empresa'] != '':
+
+			Nome_empresa = request.POST['Nome_Empresa']
+			sis.Nome_empresa = Nome_empresa
+			
+
+		if request.POST['Nome_Empresa'] is not None and request.POST['Nome_Sistema'] != '':
+			Nome_sistema = request.POST['Nome_Sistema']
+			sis.Nome_Sistema = Nome_sistema
+
+	try:
+		
+		sis.save()
+		messages.info(request,'Nome alterado')
+		return render(request,'configuracoes.html')
+
+	except:
+		messages.warning(request,'Não foi possivel realizar a ação')
 
 
+
+	else:
+		messages.warning(request,'Você não tem acesso à essa função')
+		return render(request,'home.html')
+	
+	
 
 
 
@@ -164,12 +205,12 @@ def login(request):
 
 			if usuario_nivel.is_atendente == True:
 				
-				return redirect('painel')
 				messages.success(request,'Usuário {} logado com sucesso'.format(usuario_nivel))
+				return redirect('painel')
 				#return HttpResponseRedirect('')
 			else:
-				return redirect('home')
 				messages.success(request,'Usuário {} logado com sucesso'.format(usuario_nivel))
+				return redirect('home')
 
 		else:
 			
@@ -503,8 +544,6 @@ def alterar_status(request):
 			
 			Chamado_ler_un.save()
 			lista_num_cham.append(id_un)
-
-		sort(lista_num_cham)
 		
 			
 
@@ -546,7 +585,6 @@ def alterar_prioridade(request):
 			Chamado_ler_un.save()
 			lista_num_cham.append(id_un)
 
-		sort(lista_num_cham)
 		
 			#print('chamado {} lido foi marcado como {}'.format(id_un,prioridade))
 
@@ -594,11 +632,11 @@ def usuarios(request):
 def ver_usuario(request,nome_usuario):
 	context = {}
 	usuario_un = Usuario.objects.get(username = nome_usuario)
-	chamados_si = obter_chamados()
+
 	novs_cham = obter_novos_chamados()
 	chamados = Chamado.objects.all()
 	
-	numero_chamados = 0
+
 	usuario_un.numero_chamados = Chamado.objects.filter(autor= usuario_un).count() 
 				 # Representa a quantidade de chamados que cada usuário tem no sistema
 
