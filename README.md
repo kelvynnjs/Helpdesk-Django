@@ -23,8 +23,6 @@ password: usuarioteste123
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-Devido a mudança de máquina de desenvolvimento, o sistema pode apresentar algumas falhas visuais/erros (consegui corrigir alguns, substituindo código corrompido entre versões com código presente na máquina antiga)
-
 
 
 Caso observe algum erro/problema, favor relatar
